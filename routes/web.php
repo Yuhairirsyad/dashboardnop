@@ -27,3 +27,5 @@ Route::get('/', [adminController::class, 'index'])->name('index');
 
 // admin
 Route::get('/quotes', [adminController::class, 'quotes'])->name('quotes');
+
+Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
