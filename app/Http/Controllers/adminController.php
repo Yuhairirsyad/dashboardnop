@@ -13,4 +13,9 @@ class adminController extends Controller
     public function quotes(){
         return view('admin.quotes');
     }
+
+    
+    public function grouping(){
+        return view('admin.grouping');
+    }
 }
