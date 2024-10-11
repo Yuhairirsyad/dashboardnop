@@ -29,3 +29,5 @@ Route::get('/', [adminController::class, 'index'])->name('index');
 Route::get('/quotes', [adminController::class, 'quotes'])->name('quotes');
 
 Route::get('/input', [adminController::class, 'inputgroup'])->name('input');
+Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
+
