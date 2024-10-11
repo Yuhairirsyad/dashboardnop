@@ -3,6 +3,8 @@
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\dashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +33,7 @@ Route::get('/quotes', [adminController::class, 'quotes'])->name('quotes');
 Route::get('/input', [adminController::class, 'inputgroup'])->name('input');
 
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
+
+Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
+ 
 
