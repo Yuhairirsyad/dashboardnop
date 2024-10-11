@@ -27,3 +27,5 @@ Route::get('/', [adminController::class, 'index'])->name('index');
 
 // admin
 Route::get('/quotes', [adminController::class, 'quotes'])->name('quotes');
+
+Route::get('/input', [adminController::class, 'inputgroup'])->name('input');
