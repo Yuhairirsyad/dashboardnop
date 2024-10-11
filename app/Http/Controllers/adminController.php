@@ -14,6 +14,10 @@ class adminController extends Controller
         return view('admin.quotes');
     }
 
+
+    public function inputgroup(){
+        return view('admin.input');
+}
     
     public function grouping(){
         return view('admin.grouping');
