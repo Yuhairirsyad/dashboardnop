@@ -139,54 +139,57 @@
 @endsection
 
 @section('content')
-<div class="card" style="background-color: grey" align="center">
-    <div class="card-header">
-        <h5 class="card-title mb-0">Input</h5>
+<div class="col-md-12 col-sm-12">
+<div class="card mx-auto my-5" style="background-color: grey" align="center">
+    <div class="card-header" style="background-color: rgb(88, 87, 85)">
+        <h2 class="card-title mb-0">Athlete Group</h2>
     </div>
     <div class="card-body">
-        <input type="text" class="form-control" placeholder="Input">
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <label class="form-check">
+                        <p>PILIH AREA </p>
+                    </label>
+                </div>
+                <div>
+                    <label class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inline-radios-example" value="option1">
+                        <span class="form-check-label">
+                            JAWA TENGAH
+                        </span>
+                    </label>
+                    <label class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inline-radios-example" value="option2">
+                        <span class="form-check-label">
+                            JAWA TIMUR
+                        </span>
+                    </label>
+                    <label class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inline-radios-example" value="option3">
+                        <span class="form-check-label">
+                            BALINUSRA
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-4">
+				<h6>Input Group</h6>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Input">
+					<button class="btn btn-primary ms-2" type="button">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload align-middle me-2">
+							<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+							<polyline points="17 8 12 3 7 8"></polyline>
+							<line x1="12" y1="3" x2="12" y2="15"></line>
+						</svg>
+						Input
+					</button>
+				</div>
+			</div>
+			<a href="{{ route('admin.export-users') }}" class="btn btn-success">Export Users to Excel</a>
+        </div>
     </div>
 </div>
-<div class="card-body">
-    <div>
-        <label class="form-check">
-<input class="form-check-input" type="radio" value="option1" name="radios-example" checked="">
-<span class="form-check-label">
-Option one is this and that—be sure to include why it's great
-</span>
-</label>
-        <label class="form-check">
-<input class="form-check-input" type="radio" value="option2" name="radios-example">
-<span class="form-check-label">
-Option two can be something else and selecting it will deselect option one
-</span>
-</label>
-        <label class="form-check">
-<input class="form-check-input" type="radio" value="option3" name="radios-example" disabled="">
-<span class="form-check-label">
-Option three is disabled
-</span>
-</label>
-    </div>
-    <div>
-        <label class="form-check form-check-inline">
-<input class="form-check-input" type="radio" name="inline-radios-example" value="option1">
-<span class="form-check-label">
-1
-</span>
-</label>
-        <label class="form-check form-check-inline">
-<input class="form-check-input" type="radio" name="inline-radios-example" value="option2">
-<span class="form-check-label">
-2
-</span>
-</label>
-        <label class="form-check form-check-inline">
-<input class="form-check-input" type="radio" name="inline-radios-example" value="option3" disabled="">
-<span class="form-check-label">
-3
-</span>
-</label>
-    </div>
 </div>
 @endsection
