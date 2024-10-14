@@ -187,7 +187,7 @@
 					</button>
 				</div>
 			</div>
-			<a href="{{ route('admin.export-users') }}" class="btn btn-success">Export Users to Excel</a>
+
         </div>
     </div>
 </div>
