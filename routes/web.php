@@ -24,16 +24,22 @@ use Maatwebsite\Excel\Facades\Excel;
 //     return view('admin.main');
 // });
 
-//  dashboard ADMIN
+// ADMIN
+//  DASHBOARD ADMIN
 Route::get('/', [adminController::class, 'index'])->name('index');
+Route::post('/crtuser', [adminController::class, 'crtuser'])->name('crtuser');
 
-// admin
+// QUOTES
 Route::get('/quotes', [adminController::class, 'quotes'])->name('quotes');
+Route::post('/crtquotes', [adminController::class, 'crtquotes'])->name('crtquotes');
+Route::get('/editqts/{id}', [adminController::class, 'editqts'])->name('editqts');
+Route::post('/updateqts/{id}', [adminController::class, 'updateqts'])->name('updateqts');
+Route::delete('/deletequotes/{id}', [adminController::class, 'deletequotes'])->name('deletequotes');
+
+
 
 Route::get('/input', [adminController::class, 'inputgroup'])->name('input');
-
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
-
 Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
  
 
