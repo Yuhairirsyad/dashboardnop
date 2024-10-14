@@ -513,40 +513,7 @@
 									<i class="bi bi-pencil"></i> Edit
 								</a>
 
-								<!-- Modal Bootstrap -->
-								<!-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
-									aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="editModalLabel">Edit Quotes</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal"
-													aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												
-												<form action="{{ route('edtquotes', ['id' => $d->id]) }}" method="POST">
-													@csrf
-													@method('POST')
-													<div class="mb-3">
-														<label for="quote" class="form-label">Quote</label>
-														<textarea class="form-control" id="quote" name="quote"
-															rows="3">{{ $d->quotes }}</textarea>
-															@error('quote')
-															<small>{{ $message }}</small>
-															@enderror
-													</div>
-
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-bs-dismiss="modal">Close</button>
-														<button type="submit" class="btn btn-primary">Save changes</button>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div> -->
+								
 								<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editModal">
 									<i class="bi bi-trash"></i> Hapus
 								</a>
