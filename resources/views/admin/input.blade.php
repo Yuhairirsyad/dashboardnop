@@ -139,57 +139,139 @@
 @endsection
 
 @section('content')
-<div class="col-md-12 col-sm-12">
-<div class="card mx-auto my-5" style="background-color: grey" align="center">
-    <div class="card-header" style="background-color: rgb(88, 87, 85)">
-        <h2 class="card-title mb-0">Athlete Group</h2>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <div>
-                    <label class="form-check">
-                        <p>PILIH AREA </p>
-                    </label>
-                </div>
-                <div>
-                    <label class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inline-radios-example" value="option1">
-                        <span class="form-check-label">
-                            JAWA TENGAH
-                        </span>
-                    </label>
-                    <label class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inline-radios-example" value="option2">
-                        <span class="form-check-label">
-                            JAWA TIMUR
-                        </span>
-                    </label>
-                    <label class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inline-radios-example" value="option3">
-                        <span class="form-check-label">
-                            BALINUSRA
-                        </span>
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-4">
-				<h6>Input Group</h6>
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Input">
-					<button class="btn btn-primary ms-2" type="button">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload align-middle me-2">
-							<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-							<polyline points="17 8 12 3 7 8"></polyline>
-							<line x1="12" y1="3" x2="12" y2="15"></line>
-						</svg>
-						Input
-					</button>
+<main class="content">
+	<div class="container-fluid p-0">
+		<h1 class="h3 mb-3"><strong>Group</strong> Dashboard</h1>
+		<form action="{{ route('input.store') }}" method="POST">
+			@csrf
+			<div class="row">
+				<!-- Input Group Section -->
+				<div class="col-md-6">
+					<div>
+						<p>PILIH AREA</p>
+					</div>
+					<div>
+						<label class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="area" value="JAWA TENGAH" required>
+							<span class="form-check-label">JAWA TENGAH</span>
+						</label>
+						<label class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="area" value="JAWA TIMUR" required>
+							<span class="form-check-label">JAWA TIMUR</span>
+						</label>
+						<label class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="area" value="BALINUSRA" required>
+							<span class="form-check-label">BALINUSRA</span>
+						</label>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h6>Input Group</h6>
+					<div class="input-group">
+						<input type="text" class="form-control" name="grup" placeholder="Input">
+						<button class="btn btn-primary ms-2" type="submit">Simpan</button>
+					</div>
 				</div>
 			</div>
+		</form>
 
-        </div>
-    </div>
-</div>
-</div>
+		<!-- Table for displaying group data -->
+		<div class="card-body table-responsive p-0">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Area</th>
+						<th>Grup</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach ($data as $item)
+					<tr>
+						<th>{{ $loop->iteration }}</th>
+						<td>{{ $item->area }}</td>
+						<td>{{ $item->grup }}</td>
+						<td>
+							<!-- Button to trigger edit modal -->
+							<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
+								<i class="bi bi-pencil"></i> Edit
+							</a>
+
+							<!-- Modal for editing group data -->
+							<div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Grup</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<!-- Form Edit -->
+											<form action="{{ route('input.update', ['id' => $item->id]) }}" method="POST">
+												@csrf
+												@method('POST')
+												<div class="mb-3">
+													<label for="area{{ $item->id }}" class="form-label">Area</label>
+													<select class="form-select" id="area{{ $item->id }}" name="area" required>
+														<option value="JAWA TENGAH" {{ $item->area == 'JAWA TENGAH' ? 'selected' : '' }}>JAWA TENGAH</option>
+														<option value="JAWA TIMUR" {{ $item->area == 'JAWA TIMUR' ? 'selected' : '' }}>JAWA TIMUR</option>
+														<option value="BALINUSRA" {{ $item->area == 'BALINUSRA' ? 'selected' : '' }}>BALINUSRA</option>
+													</select>
+												</div>
+												<div class="mb-3">
+													<label for="grup{{ $item->id }}" class="form-label">Grup</label>
+													<input type="text" class="form-control" id="grup{{ $item->id }}" name="grup" value="{{ $item->grup }}" required>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+													<button type="submit" class="btn btn-primary">Save changes</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>							
+							<!-- Tombol Hapus -->
+							<a data-bs-toggle="modal" data-bs-target="#modal-hapus{{ $item->id }}" class="btn btn-danger">
+								<i class="bi bi-trash"></i> Hapus
+							</a>
+
+							<!-- Modal Konfirmasi Hapus -->
+							<div class="modal fade" id="modal-hapus{{ $item->id }}" tabindex="-1"
+								aria-labelledby="modalHapusLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="modalHapusLabel">Konfirmasi Hapus</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											Apakah Anda yakin ingin menghapus quote ini?
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Batal</button>
+											<form action="{{ route('input.destroy', ['id' => $item->id]) }}" method="POST">
+												@csrf
+												@method('DELETE')
+												<button type="submit" class="btn btn-danger">Hapus</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
+</main>
+<hr>
+
+<!-- Table to display the data -->
+
+
 @endsection
