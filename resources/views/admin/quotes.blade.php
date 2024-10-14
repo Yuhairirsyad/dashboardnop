@@ -174,7 +174,21 @@
 </style>
 <main class="content">
 	<div class="container-fluid p-0">
-
+	@if (session('successqts'))
+          <div class="alert alert-success">
+            {{ session('successqts') }}
+          </div>
+        @endif
+	@if (session('edtscss'))
+          <div class="alert alert-success">
+            {{ session('edtscss') }}
+          </div>
+        @endif
+	@if (session('dltquts'))
+          <div class="alert alert-success">
+            {{ session('dltquts') }}
+          </div>
+        @endif
 		<h1 class="h3 mb-3"><strong>Quotes</strong> Dashboard</h1>
 		<form action="{{route('crtquotes')}}" method="post">
 			@csrf

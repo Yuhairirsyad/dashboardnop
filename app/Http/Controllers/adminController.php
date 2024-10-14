@@ -68,7 +68,7 @@ class adminController extends Controller
     public function updateusr(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'id_athlete' => 'required|unique:list_daftar',
+            'id_athlete' => 'required|unique:list_daftar,id_athlete,' . $id,
             'username' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
@@ -80,6 +80,7 @@ class adminController extends Controller
             'warna' => 'required',
             'tgl_register' => 'required',
         ]);
+
 
         if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
@@ -103,7 +104,7 @@ class adminController extends Controller
 
         Listdaftar::whereId($id)->update($data);
 
-        return redirect()->route('index');
+        return redirect()->route('index')->with('updusr', 'Data berhasil diperbarui');
     }
 
     public function deleteusr(Request $request, $id)
@@ -111,14 +112,13 @@ class adminController extends Controller
         $datausr = Listdaftar::find($id);
 
         if (!$datausr) {
-            return redirect()->back()->with('error', 'Quote tidak ditemukan.');
+            return redirect()->back()->with('error', 'data tidak ditemukan.');
         }
 
         $datausr->delete();
 
-        return redirect()->back()->with('success', 'Quote berhasil dihapus.');
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
-
 
     // END INDEX
 
@@ -142,7 +142,7 @@ class adminController extends Controller
 
         Quotes::create($data);
 
-        return redirect()->route('quotes');
+        return redirect()->route('quotes')->with('successqts', 'Quote  berhasil dibuat');
     }
 
     public function editqts(Request $request, $id)
@@ -165,7 +165,7 @@ class adminController extends Controller
 
         Quotes::whereId($id)->update($data);
 
-        return redirect()->route('quotes');
+        return redirect()->route('quotes')->with('edtscss', 'Quote berhasil diperbarui');
     }
 
     public function deletequotes(Request $request, $id)
@@ -178,7 +178,7 @@ class adminController extends Controller
 
         $quote->delete();
 
-        return redirect()->back()->with('success', 'Quote berhasil dihapus.');
+        return redirect()->back()->with('dltquts', 'Quote berhasil dihapus.');
     }
 
     // END QUOTES

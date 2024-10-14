@@ -143,6 +143,21 @@
 
 <main class="content">
 	<div class="container-fluid p-0">
+	@if (session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+        @endif
+	@if (session('updusr'))
+          <div class="alert alert-success">
+            {{ session('updusr') }}
+          </div>
+        @endif
+	@if (session('error'))
+          <div class="alert alert-success">
+            {{ session('error') }}
+          </div>
+        @endif
 
 		<h1 class="h3 mb-3"><strong>User</strong> Dashboard</h1>
 		<a href="#" class="btn btn-primary mb-3 mt-2" data-bs-toggle="modal" data-bs-target="#tambahModal">
@@ -163,31 +178,52 @@
 								@csrf
 								<div class="mb-3">
 									<label for="id_athlete" class="form-label">ID Athlete</label>
-									<input type="text" class="form-control" id="id_athlete" name="id_athlete" required>
+									<input type="text" class="form-control" id="id_athlete" name="id_athlete">
+									@error('id_athlete')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 								<div class="mb-3">
 									<label for="username" class="form-label">Username</label>
-									<input type="text" class="form-control" id="username" name="username" required>
+									<input type="text" class="form-control" id="username" name="username">
+									@error('username')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 								<div class="mb-3">
 									<label for="firstname" class="form-label">First Name</label>
-									<input type="text" class="form-control" id="firstname" name="firstname" required>
+									<input type="text" class="form-control" id="firstname" name="firstname">
+									@error('firstname')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 								<div class="mb-3">
 									<label for="lastname" class="form-label">Last Name</label>
-									<input type="text" class="form-control" id="lastname" name="lastname" required>
+									<input type="text" class="form-control" id="lastname" name="lastname">
+									@error('lastname')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 								<div class="mb-3">
 									<label for="refresh_token" class="form-label">Refresh Token</label>
 									<input type="text" class="form-control" id="refresh_token" name="refresh_token">
+									@error('refresh_token')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 								<div class="mb-3">
 									<label for="access_token" class="form-label">Access Token</label>
 									<input type="text" class="form-control" id="access_token" name="access_token">
+									@error('access_token')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 								<div class="mb-3">
 									<label for="foto_profil" class="form-label">Foto Profil</label>
 									<input type="text" class="form-control" id="foto_profil" name="foto_profil">
+									@error('foto_profil')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 								<div class="mb-3">
 									<label for="area" class="form-label">Area</label>
@@ -200,11 +236,17 @@
 								<div class="mb-3">
 									<label for="warna" class="form-label">Warna</label>
 									<input type="text" class="form-control" id="warna" name="warna">
+									@error('warna')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 								<div class="mb-3">
 									<label for="tgl_register" class="form-label">Tanggal dan Waktu Register</label>
 									<input type="datetime-local" class="form-control" id="tgl_register"
-										name="tgl_register" required>
+										name="tgl_register">
+										@error('tgl_register')
+									<small>{{$message}}</small>
+									@enderror
 								</div>
 
 						</div>
@@ -531,22 +573,22 @@
 														<div class="mb-3">
 															<label for="id_athlete" class="form-label">ID Athlete</label>
 															<input type="text" class="form-control" id="id_athlete"
-																name="id_athlete" value="{{$d->id_athlete}}" required>
+																name="id_athlete" value="{{$d->id_athlete}}">
 														</div>
 														<div class="mb-3">
 															<label for="username" class="form-label">Username</label>
 															<input type="text" class="form-control" id="username"
-																name="username" value="{{$d->username}} "required>
+																name="username" value="{{$d->username}} ">
 														</div>
 														<div class="mb-3">
 															<label for="firstname" class="form-label">First Name</label>
 															<input type="text" class="form-control" id="firstname"
-																name="firstname" value="{{$d->firstname}}" required>
+																name="firstname" value="{{$d->firstname}}" >
 														</div>
 														<div class="mb-3">
 															<label for="lastname" class="form-label">Last Name</label>
 															<input type="text" class="form-control" id="lastname"
-																name="lastname" value="{{$d->lastname}}" required>
+																name="lastname" value="{{$d->lastname}}" >
 														</div>
 														<div class="mb-3">
 															<label for="refresh_token" class="form-label">Refresh
@@ -583,7 +625,7 @@
 															<label for="tgl_register" class="form-label">Tanggal dan Waktu
 																Register</label>
 															<input type="datetime-local" class="form-control"
-																id="tgl_register" name="tgl_register" value="{{$d->tgl_register}}" required>
+																id="tgl_register" name="tgl_register" value="{{$d->tgl_register}}">
 														</div>
 
 														<div class="modal-footer">
