@@ -142,41 +142,77 @@
 
 
 
-<div class="row card col-md-10 col-sm-12 mx-auto">
-    <div align="center" class="">
-        <h2 class="pt-2">GROUPING ATLET</h2>
-        <table class="table table-striped">
-            <thead>
-                <td>NO</td>
-                <td>NAMA ATLET</td>
-                <td>RIWAYAT</td>
-                <td>AREA</td>
-                <td>GROUP</td>
-                <td>PILIH</td>
-            </thead>
-            <tbody> <!-- ntar fetch data user -->
-                <td>a</td>
-                <td>b</td>
-                <td>c</td>
-                <td>a</td>
-                <td>b</td>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input
-                            class="form-check-input"
-                            name=""
-                            id=""
-                            type="radio"
-                            value="checkedValue"
-                            aria-label="Text for screen reader"
-                        />
-                    </label>
-                </div>
-
-            </tbody>
-        </table>
+<div class="row justify-content-center mt-5 ">
+    <div class="col-md-10 col-lg-8 col-xl-6">
+        <div class="card">
+            <div align="center" class="card-header">
+                <h2 class="pt-2">GROUPING ATLET</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>NAMA ATHLETE</th>
+                            <th>RIWAYAT/PERINGKAT</th>
+                            <th>AREA</th>
+                            <th>GROUP</th>
+                            <th>PILIH</th>
+                            <th>AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody> <!--ntar ganti sama data real some kind of foreach-->
+                        <tr>
+                            <td>1</td>
+                            <td>Nama Atlet 1</td>
+                            <td>Riwayat 1</td>
+                            <td>Area 1</td>
+                            <td>Group 1</td>
+                            <td>
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input"
+                                        name="pilihan"
+                                        type="radio"
+                                        value="1"
+                                        aria-label="Pilih Atlet 1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">Edit</button>
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Nama Atlet 2</td>
+                            <td>Riwayat 2</td>
+                            <td>Area 2</td>
+                            <td>Group 2</td>
+                            <td>
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input"
+                                        name="pilihan"
+                                        type="radio"
+                                        value="2"
+                                        aria-label="Pilih Atlet 2"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">Edit</button>
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
 
 
 @endsection
