@@ -134,14 +134,4 @@ class adminController extends Controller
     {
         return view('admin.grouping');
     }
-
-    /**
-     * Ekspor data pengguna ke Excel.
-     *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
-    // public function exportUsers()
-    // {
-    //     return Excel::download(new UsersExport, 'users.xlsx');
-    // }
 }
