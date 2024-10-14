@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\UsersExport;
 use App\Models\Listdaftar;
 use App\Models\Quotes;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class adminController extends Controller
 {
-
     // INDEX
     public function index()
     {
@@ -19,6 +19,7 @@ class adminController extends Controller
         return view('admin.index', compact('data'));
     }
 
+    // CREATE USER
     public function crtuser(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -38,37 +39,27 @@ class adminController extends Controller
         if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
 
-        $data['id_athlete'] = $request->id_athlete;
-        $data['username'] = $request->username;
-        $data['firstname'] = $request->firstname;
-        $data['lastname'] = $request->lastname;
-        $data['refresh_token'] = $request->refresh_token;
-        $data['access_token'] = $request->access_token;
-        $data['foto_profil'] = $request->foto_profil;
-        if ($request->area) {
-            $data['area'] = $request->area;
-        }
-
-        if ($request->grup) {
-            $data['grup'] = $request->grup;
-        }
-        $data['warna'] = $request->warna;
-        $data['tgl_register'] = $request->tgl_register;
+        $data = $request->only([
+            'id_athlete', 'username', 'firstname', 'lastname', 'refresh_token', 'access_token', 'foto_profil', 'area', 'grup', 'warna', 'tgl_register'
+        ]);
 
         Listdaftar::create($data);
+
         return redirect()->route('index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
+    // EDIT USER
     public function editusr(Request $request, $id)
     {
         $data = Listdaftar::find($id);
         return view('index', compact('data'));
     }
 
+    // UPDATE USER
     public function updateusr(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'id_athlete' => 'required|unique:list_daftar',
+            'id_athlete' => 'required|unique:list_daftar,id,' . $id,
             'username' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
@@ -84,45 +75,30 @@ class adminController extends Controller
         if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
 
-        $data['id_athlete'] = $request->id_athlete;
-        $data['username'] = $request->username;
-        $data['firstname'] = $request->firstname;
-        $data['lastname'] = $request->lastname;
-        $data['refresh_token'] = $request->refresh_token;
-        $data['access_token'] = $request->access_token;
-        $data['foto_profil'] = $request->foto_profil;
-        if ($request->area) {
-            $data['area'] = $request->area;
-        }
-
-        if ($request->grup) {
-            $data['grup'] = $request->grup;
-        }
-        $data['warna'] = $request->warna;
-        $data['tgl_register'] = $request->tgl_register;
+        $data = $request->only([
+            'id_athlete', 'username', 'firstname', 'lastname', 'refresh_token', 'access_token', 'foto_profil', 'area', 'grup', 'warna', 'tgl_register'
+        ]);
 
         Listdaftar::whereId($id)->update($data);
 
         return redirect()->route('index');
     }
 
+    // DELETE USER
     public function deleteusr(Request $request, $id)
     {
         $datausr = Listdaftar::find($id);
 
         if (!$datausr) {
-            return redirect()->back()->with('error', 'Quote tidak ditemukan.');
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
         }
 
         $datausr->delete();
 
-        return redirect()->back()->with('success', 'Quote berhasil dihapus.');
+        return redirect()->back()->with('success', 'User berhasil dihapus.');
     }
 
-
-    // END INDEX
-
-    // QUOTES
+    // QUOTES SECTION
     public function quotes()
     {
         $data = Quotes::get();
@@ -138,9 +114,7 @@ class adminController extends Controller
         if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
 
-        $data['quotes'] = $request->quotes;
-
-        Quotes::create($data);
+        Quotes::create(['quotes' => $request->quotes]);
 
         return redirect()->route('quotes');
     }
@@ -151,7 +125,6 @@ class adminController extends Controller
         return view('quotes', compact('data'));
     }
 
-
     public function updateqts(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -161,9 +134,7 @@ class adminController extends Controller
         if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
 
-        $data['quotes'] = $request->quote;
-
-        Quotes::whereId($id)->update($data);
+        Quotes::whereId($id)->update(['quotes' => $request->quote]);
 
         return redirect()->route('quotes');
     }
@@ -181,18 +152,61 @@ class adminController extends Controller
         return redirect()->back()->with('success', 'Quote berhasil dihapus.');
     }
 
-    // END QUOTES
-
-
-
-
-    public function inputgroup()
+    // INPUT SECTION
+    // Tampilkan halaman input group
+    public function inputgroup(): Factory|View
     {
-        return view('admin.input');
+        $data = Input::all();
+        return view('admin.input', compact('data'));
     }
 
-    public function grouping()
+    // Tampilkan halaman input yang lain
+    public function inputPage(): Factory|View
     {
-        return view('admin.grouping');
+        $data = Input::all();
+        return view('admin.input', compact('data')); // Bisa ubah view jika berbeda
+    }
+
+    // Simpan data ke database
+    public function store(Request $request)
+    {
+        $request->validate([
+            'area' => 'required',
+            'grup' => 'required',
+        ]);
+
+        Input::create($request->only(['area', 'grup']));
+
+        return redirect()->route('inputgroup')->with('success', 'Data berhasil disimpan!');
+    }
+
+    // Tampilkan halaman edit
+    public function edit($id)
+    {
+        $data = Input::findOrFail($id);
+        return view('admin.edit', compact('data'));
+    }
+
+    // Update data
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'area' => 'required',
+        'grup' => 'required',
+    ]);
+
+    $data = Input::findOrFail($id);
+    $data->update($request->only(['area', 'grup']));
+
+    return redirect()->route('inputgroup')->with('success', 'Data berhasil diupdate!');
+}
+
+    // Hapus data
+    public function destroy($id)
+    {
+        $data = Input::findOrFail($id);
+        $data->delete();
+
+        return redirect()->route('inputgroup')->with('success', 'Data berhasil dihapus!');
     }
 }
