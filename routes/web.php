@@ -41,9 +41,17 @@ Route::get('/editqts/{id}', [adminController::class, 'editqts'])->name('editqts'
 Route::post('/updateqts/{id}', [adminController::class, 'updateqts'])->name('updateqts');
 Route::delete('/deletequotes/{id}', [adminController::class, 'deletequotes'])->name('deletequotes');
 
+// INPUT GROUP
+Route::get('/inputgroup', [adminController::class, 'inputgroup'])->name('inputgroup');
+Route::post('/input/store', [adminController::class, 'store'])->name('input.store');
+Route::get('/input/edit/{id}', [adminController::class, 'edit'])->name('input.edit');
+Route::post('/input/update/{id}', [adminController::class, 'update'])->name('input.update');
+Route::delete('/input/destroy/{id}', [adminController::class, 'destroy'])->name('input.destroy');
+
+// INPUT PAGE (nama rute diubah untuk menghindari duplikasi)
+Route::get('/input', [adminController::class, 'inputPage'])->name('input');
 
 
-Route::get('/input', [adminController::class, 'inputgroup'])->name('input');
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
 Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
  
