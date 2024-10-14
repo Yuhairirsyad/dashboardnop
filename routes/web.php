@@ -28,6 +28,11 @@ use Maatwebsite\Excel\Facades\Excel;
 //  DASHBOARD ADMIN
 Route::get('/', [adminController::class, 'index'])->name('index');
 Route::post('/crtuser', [adminController::class, 'crtuser'])->name('crtuser');
+Route::get('/editusr/{id}', [adminController::class, 'editusr'])->name('editusr');
+Route::post('/updateusr/{id}', [adminController::class, 'updateusr'])->name('updateusr');
+Route::delete('/deleteusr/{id}', [adminController::class, 'deleteusr'])->name('deleteusr');
+
+
 
 // QUOTES
 Route::get('/quotes', [adminController::class, 'quotes'])->name('quotes');

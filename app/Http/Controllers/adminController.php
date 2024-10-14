@@ -59,6 +59,66 @@ class adminController extends Controller
         return redirect()->route('index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
+    public function editusr(Request $request, $id)
+    {
+        $data = Listdaftar::find($id);
+        return view('index', compact('data'));
+    }
+
+    public function updateusr(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_athlete' => 'required|unique:list_daftar',
+            'username' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'refresh_token' => 'required',
+            'access_token' => 'required',
+            'foto_profil' => 'required',
+            'area' => 'nullable',
+            'grup' => 'nullable',
+            'warna' => 'required',
+            'tgl_register' => 'required',
+        ]);
+
+        if ($validator->fails())
+            return redirect()->back()->withInput()->withErrors($validator);
+
+        $data['id_athlete'] = $request->id_athlete;
+        $data['username'] = $request->username;
+        $data['firstname'] = $request->firstname;
+        $data['lastname'] = $request->lastname;
+        $data['refresh_token'] = $request->refresh_token;
+        $data['access_token'] = $request->access_token;
+        $data['foto_profil'] = $request->foto_profil;
+        if ($request->area) {
+            $data['area'] = $request->area;
+        }
+
+        if ($request->grup) {
+            $data['grup'] = $request->grup;
+        }
+        $data['warna'] = $request->warna;
+        $data['tgl_register'] = $request->tgl_register;
+
+        Listdaftar::whereId($id)->update($data);
+
+        return redirect()->route('index');
+    }
+
+    public function deleteusr(Request $request, $id)
+    {
+        $datausr = Listdaftar::find($id);
+
+        if (!$datausr) {
+            return redirect()->back()->with('error', 'Quote tidak ditemukan.');
+        }
+
+        $datausr->delete();
+
+        return redirect()->back()->with('success', 'Quote berhasil dihapus.');
+    }
+
 
     // END INDEX
 
@@ -87,20 +147,21 @@ class adminController extends Controller
 
     public function editqts(Request $request, $id)
     {
-        $data =Quotes::find($id);
+        $data = Quotes::find($id);
         return view('quotes', compact('data'));
     }
 
 
-    public function updateqts(Request $request,$id){
+    public function updateqts(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
-            'quote'      => 'required',
+            'quote' => 'required',
         ]);
 
         if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
 
-        $data['quotes']     = $request->quote;
+        $data['quotes'] = $request->quote;
 
         Quotes::whereId($id)->update($data);
 
