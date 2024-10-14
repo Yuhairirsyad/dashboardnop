@@ -23,7 +23,8 @@
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('grouping')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Grouping Athlte</span>
+					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Grouping
+						Athlte</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
@@ -139,40 +140,157 @@
 @endsection
 
 @section('content')
-<main class="content">
-<div class="container-fluid p-0">
+<style>
+	/* Ubah warna header tabel */
+	#example thead {
+		background-color: #7FA1C3;
+		/* Hijau */
+		color: white;
+	}
 
-<h1 class="h3 mb-3"><strong>Quotes</strong> Dashboard</h1>
-<div class="card-body table-responsive p-0">
-    <table class="table table-hover text-nowrap">
-<thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+	/* Baris genap */
+	#example tbody tr:nth-child(even) {
+		background-color: #f2f2f2;
+		/* Warna abu-abu muda */
+	}
+
+	/* Baris ganjil */
+	#example tbody tr:nth-child(odd) {
+		background-color: #ffffff;
+		/* Warna putih */
+	}
+
+	/* Hover efek untuk baris */
+	#example tbody tr:hover {
+		background-color: #ddd;
+		/* Abu-abu gelap */
+	}
+
+	/* Warna footer */
+	#example tfoot {
+		background-color: #ddd;
+		color: white;
+	}
+</style>
+<main class="content">
+	<div class="container-fluid p-0">
+
+		<h1 class="h3 mb-3"><strong>Quotes</strong> Dashboard</h1>
+		<form action="{{route('crtquotes')}}" method="post">
+			@csrf
+			<div class="d-flex align-items-start">
+				<textarea rows="3" cols="40" class="mb-2 mt-2 me-2" name="quotes"
+					placeholder="Masukan Kata-kata Terbaikmu!"></textarea>
+				@error('quotes')
+					<small>{{ $message }}</small>
+				@enderror
+			</div>
+			<button type="submit" class="btn btn-primary mb-4">Simpan</button>
+			<button type="reset" class="btn btn-danger mb-4">Reset</button>
+		</form>
+
+		<div class="card-body table-responsive p-0">
+			<table id="example" class="table table-striped" style="width:100%">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Quotes</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach ($data as $d)
+						<tr>
+							<td>{{ $loop->iteration }}</td>
+							<td>{{ $d->quotes }}</td>
+							<td>
+								<!-- Tombol Edit -->
+								<a href="#" class="btn btn-primary" data-bs-toggle="modal"
+									data-bs-target="#editModal{{ $d->id }}">
+									<i class="bi bi-pencil"></i> Edit
+								</a>
+
+								<!-- Modal Bootstrap -->
+								<div class="modal fade" id="editModal{{ $d->id }}" tabindex="-1"
+									aria-labelledby="editModalLabel{{ $d->id }}" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="editModalLabel{{ $d->id }}">Edit Quotes</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<!-- Form Edit Quotes -->
+												<form action="{{ route('updateqts', ['id' => $d->id]) }}" method="POST">
+													@csrf
+													@method('POST')
+													<div class="mb-3">
+														<label for="quote{{ $d->id }}" class="form-label">Quote</label>
+														<textarea class="form-control" id="quote{{ $d->id }}" name="quote"
+															rows="3">{{ $d->quotes }}</textarea>
+														@error('quote')
+															<small>{{ $message }}</small>
+														@enderror
+													</div>
+
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Close</button>
+														<button type="submit" class="btn btn-primary">Save changes</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+								<!-- Tombol Hapus -->
+								<a data-bs-toggle="modal" data-bs-target="#modal-hapus{{ $d->id }}" class="btn btn-danger">
+									<i class="bi bi-trash"></i> Hapus
+								</a>
+
+								<!-- Modal Konfirmasi Hapus -->
+								<div class="modal fade" id="modal-hapus{{ $d->id }}" tabindex="-1"
+									aria-labelledby="modalHapusLabel" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="modalHapusLabel">Konfirmasi Hapus</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												Apakah Anda yakin ingin menghapus quote ini?
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Batal</button>
+												<form action="{{ route('deletequotes', ['id' => $d->id]) }}" method="POST">
+													@csrf
+													@method('DELETE')
+													<button type="submit" class="btn btn-danger">Hapus</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+
+					@endforeach
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>No</th>
+						<th>Quotes</th>
+						<th>Action</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
 </main>
 @endsection
