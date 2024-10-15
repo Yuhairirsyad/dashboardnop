@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Listdaftar;
 use App\Models\Quotes;
 use App\Models\Input;
+use App\Models\GrupChallenges;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 
 class adminController extends Controller
 {
@@ -216,4 +218,18 @@ public function update(Request $request, $id)
 
         return redirect()->route('inputgroup')->with('success', 'Data berhasil dihapus!');
     }
+
+    // START GROUPING
+
+    //View dan tampilkan data atlit
+    public function grouping()
+    {
+        $data = Listdaftar::all();
+        $grups = GrupChallenges::all();
+        return view('admin.grouping', compact('data', 'grups'));
+    }
+
+
+    // END GROUPING
+
 }
