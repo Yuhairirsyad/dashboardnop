@@ -1,6 +1,5 @@
 @extends('admin.main')
-
-@section(section: 'nav')
+@section('nav')
 <nav id="sidebar" class="sidebar js-sidebar">
 	<div class="sidebar-content js-simplebar">
 		<a class="sidebar-brand" href="{{route('index')}}">
@@ -22,17 +21,17 @@
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Quotes</span>
 				</a>
 			</li>
-			<li class="sidebar-item active">
+			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('grouping')}}">
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Grouping Athlte</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
+			<li class="sidebar-item ">
 				<a class="sidebar-link" href="{{route('input')}}">
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Input Grup</span>
 				</a>
 			</li>
-      <li class="sidebar-item">
+            <li class="sidebar-item active">
 				<a class="sidebar-link" href="{{route('challenges')}}">
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Data Challenges</span>
 				</a>
@@ -143,79 +142,17 @@
 	</div>
 </nav>
 @endsection
+
 @section('content')
+<main class="content">
+	<div class="container-fluid p-0">
+		<h1 class="h3 mb-3"><strong>Data Challenges</strong> Dashboard</h1>
+		
+		</div>
+</main>
+<hr>
 
+<!-- Table to display the data -->
 
-
-<div class="row justify-content-center mt-5 ">
-    <div class="col-md-10 col-lg-8 col-xl-6">
-        <div class="card">
-            <div align="center" class="card-header">
-                <h2 class="pt-2">GROUPING ATLET</h2>
-					<div class="d-flex flex-column flex-sm-row justify-content-center align-items-center">
-						<input id="areaInput" type="text" class="form-control col-md-3 col-xl-2 col-sm-6 mb-2 mb-sm-0" placeholder="Area" disabled>
-				
-						<select id="grupSelect" class="form-select col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0" aria-label="Grup select">
-							<option selected>Pilih Grup</option>
-							@foreach($grups as $grup)
-								<option value="{{ $grup->id }}" data-area="{{ $grup->area }}">{{ $grup->grup }}</option>
-							@endforeach
-						</select>
-			
-
-        <button type="button" class="btn btn-primary d-block d-sm-inline-block col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0 w-sm-auto">Simpan</button>
-    </div>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-responsive">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>NAMA ATHLETE</th>
-                            <th>RIWAYAT/PERINGKAT</th>
-                            <th>AREA</th>
-                            <th>GROUP</th>
-                            <th>PILIH</th>
-                            <th>AKSI</th>
-                        </tr>
-                    </thead>
-					<tbody>
-						@foreach ($data as $index => $athlete)
-						<tr>
-							<td>{{ $index + 1 }}</td>
-							<td>{{ $athlete->firstname . ' ' . $athlete->lastname }}</td>
-							<td></td>
-							<td>{{ $athlete->area }}</td>
-							<td>{{ $athlete->grup }}</td>>
-							<td><input type="checkbox" name="" id=""></td>
-							<td></td>
-						</tr>
-						@endforeach
-					</tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-		const grupSelect = document.getElementById('grupSelect');
-		const areaInput = document.getElementById('areaInput');
-	
-		// Function to update area based on selected grup
-		function updateArea() {
-			const selectedOption = grupSelect.options[grupSelect.selectedIndex];
-			const area = selectedOption.getAttribute('data-area');
-			areaInput.value = area || '';
-		}
-	
-		// Update area when grup is changed
-		grupSelect.addEventListener('change', updateArea);
-	
-		// Initial update
-		updateArea();
-	});
-	</script>
 
 @endsection
