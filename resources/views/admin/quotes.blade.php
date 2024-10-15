@@ -178,7 +178,6 @@
 	}
 </style>
 <main class="content">
-	<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse, quia quibusdam doloribus tempora eos odio!</p>
 	<div class="container-fluid p-0">
 	@if (session('successqts'))
           <div class="alert alert-success">
