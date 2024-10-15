@@ -32,6 +32,11 @@
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Input Grup</span>
 				</a>
 			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{route('challenges')}}">
+					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Data Challenges</span>
+				</a>
+			</li>
 
 			<!-- <li class="sidebar-item active">
           <a class="sidebar-link" href="#" data-bs-toggle="collapse" data-bs-target="#submenu">

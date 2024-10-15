@@ -52,7 +52,9 @@ Route::delete('/input/destroy/{id}', [adminController::class, 'destroy'])->name(
 Route::get('/input', [adminController::class, 'inputPage'])->name('input');
 
 
+// INPUT GRUP CHALLENGES
+Route::get('/challenges', [adminController::class, 'grupchallenges'])->name('challenges');
+
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
-Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
  
 

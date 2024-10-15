@@ -164,7 +164,7 @@ class adminController extends Controller
     public function inputPage(): Factory|View
     {
         $data = Input::all();
-        return view('admin.input', compact('data')); // Bisa ubah view jika berbeda
+        return view('admin.input', compact('data'));
     }
 
     // Simpan data ke database
@@ -208,5 +208,12 @@ public function update(Request $request, $id)
         $data->delete();
 
         return redirect()->route('inputgroup')->with('success', 'Data berhasil dihapus!');
+    }
+
+
+    // DATA CHALLENGES
+    public function grupchallenges(): Factory|View
+    {
+        return view('admin.challenges');
     }
 }

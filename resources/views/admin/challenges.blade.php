@@ -1,6 +1,5 @@
 @extends('admin.main')
-
-@section(section: 'nav')
+@section('nav')
 <nav id="sidebar" class="sidebar js-sidebar">
 	<div class="sidebar-content js-simplebar">
 		<a class="sidebar-brand" href="{{route('index')}}">
@@ -22,17 +21,17 @@
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Quotes</span>
 				</a>
 			</li>
-			<li class="sidebar-item active">
+			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('grouping')}}">
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Grouping Athlte</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
+			<li class="sidebar-item ">
 				<a class="sidebar-link" href="{{route('input')}}">
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Input Grup</span>
 				</a>
 			</li>
-      <li class="sidebar-item">
+            <li class="sidebar-item active">
 				<a class="sidebar-link" href="{{route('challenges')}}">
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Data Challenges</span>
 				</a>
@@ -143,81 +142,17 @@
 	</div>
 </nav>
 @endsection
+
 @section('content')
+<main class="content">
+	<div class="container-fluid p-0">
+		<h1 class="h3 mb-3"><strong>Data Challenges</strong> Dashboard</h1>
+		
+		</div>
+</main>
+<hr>
 
-
-
-<div class="row justify-content-center mt-5 ">
-    <div class="col-md-10 col-lg-8 col-xl-6">
-        <div class="card">
-            <div align="center" class="card-header">
-                <h2 class="pt-2">GROUPING ATLET</h2>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-responsive">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>NAMA ATHLETE</th>
-                            <th>RIWAYAT/PERINGKAT</th>
-                            <th>AREA</th>
-                            <th>GROUP</th>
-                            <th>PILIH</th>
-                            <th>AKSI</th>
-                        </tr>
-                    </thead>
-                    <tbody> <!--ntar ganti sama data real some kind of foreach-->
-                        <tr>
-                            <td>1</td>
-                            <td>Nama Atlet 1</td>
-                            <td>Riwayat 1</td>
-                            <td>Area 1</td>
-                            <td>Group 1</td>
-                            <td>
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input"
-                                        name="pilihan"
-                                        type="radio"
-                                        value="1"
-                                        aria-label="Pilih Atlet 1"
-                                    />
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-primary">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Nama Atlet 2</td>
-                            <td>Riwayat 2</td>
-                            <td>Area 2</td>
-                            <td>Group 2</td>
-                            <td>
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input"
-                                        name="pilihan"
-                                        type="radio"
-                                        value="2"
-                                        aria-label="Pilih Atlet 2"
-                                    />
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-primary">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- Table to display the data -->
 
 
 @endsection
