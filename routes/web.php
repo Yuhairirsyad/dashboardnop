@@ -51,8 +51,10 @@ Route::delete('/input/destroy/{id}', [adminController::class, 'destroy'])->name(
 // INPUT PAGE (nama rute diubah untuk menghindari duplikasi)
 Route::get('/input', [adminController::class, 'inputPage'])->name('input');
 
-
+// Grouping
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
+
+
+
 Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
- 
 
