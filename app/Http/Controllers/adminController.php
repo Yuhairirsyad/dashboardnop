@@ -6,14 +6,65 @@ use App\Models\Listdaftar;
 use App\Models\Quotes;
 use App\Models\Input;
 use App\Models\GrupChallenges;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class adminController extends Controller
 {
+
+    // LOGIN
+    public function adminlogin(){
+        return view('admin.login');
+    }
+
+    public function login_proses(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+    
+        // akun admin 
+        $adminuser = 'admin';
+        $adminPassword = 'adminjateng#1';
+    
+        if ($request->username === $adminuser && Hash::check($request->password, Hash::make($adminPassword))) {
+            $admin = User::where('username', $adminuser)->first();
+    
+            if (!$admin) {
+                $admin = User::create([
+                    'username' => $adminuser,
+                    'level' => 'admin',
+                    'password' => Hash::make($adminPassword),
+                ]);
+            }
+    
+            Auth::login($admin);
+            return redirect()->route('index')->with('successadm', 'Berhasil Login');
+        } 
+        else {
+            return redirect()->route('login')->with('errorlgn', 'Username atau Password tidak valid.');
+        }
+    }
+    
+    
+    
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login')->with('logout', 'Berhasil Logout');
+    }
+
+    // END LOGIN
+
+
     // INDEX
     public function index()
     {
@@ -173,7 +224,7 @@ class adminController extends Controller
     public function inputPage(): Factory|View
     {
         $data = Input::all();
-        return view('admin.input', compact('data')); // Bisa ubah view jika berbeda
+        return view('admin.input', compact('data'));
     }
 
     // Simpan data ke database
@@ -219,6 +270,7 @@ public function update(Request $request, $id)
         return redirect()->route('inputgroup')->with('success', 'Data berhasil dihapus!');
     }
 
+
 // START GROUPING
 
 public function grouping()
@@ -258,5 +310,13 @@ public function resetAthletesGroup(Request $request)
 }
 
 // END GROUPING
+
+
+
+    // DATA CHALLENGES
+    public function grupchallenges(): Factory|View
+    {
+        return view('admin.challenges');
+    }
 
 }
