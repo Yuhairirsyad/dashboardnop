@@ -13,27 +13,29 @@
 
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('index')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+				<i class="bi bi-speedometer"></i> <span class="align-middle">Dashboard</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('quotes')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Quotes</span>
+				<i class="bi bi-quote"></i> <span class="align-middle">Quotes</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('grouping')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Grouping Athlte</span>
+				<i class="bi bi-people-fill"></i> <span class="align-middle">Grouping
+						Athlte</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
+			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('input')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Input Grup</span>
+				<i class="bi bi-send-fill"></i> <span class="align-middle">Input Grup</span>
 				</a>
 			</li>
-            <li class="sidebar-item active">
+			<li class="sidebar-item active">
 				<a class="sidebar-link" href="{{route('challenges')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Data Challenges</span>
+				<i class="bi bi-activity"></i> <span class="align-middle">Data
+						Challenges</span>
 				</a>
 			</li>
 
