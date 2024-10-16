@@ -57,7 +57,10 @@ Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name
 // INPUT GRUP CHALLENGES
 Route::get('/challenges', [adminController::class, 'grupchallenges'])->name('challenges');
 
+// GROUPING
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
- 
+Route::post('/update-athletes-group', [adminController::class, 'updateAthletesGroup'])->name('update.athletes.group');
+Route::post('/reset-athletes-group', [adminController::class, 'resetAthletesGroup'])->name('reset.athletes.group');
+
 
 
