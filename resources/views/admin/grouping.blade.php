@@ -154,7 +154,7 @@
     <form id="athleteForm" action="{{ route('update.athletes.group') }}" method="POST">
       @csrf
       <div class="d-flex flex-column flex-sm-row justify-content-center mt-4 align-items-center mb-3">
-          <input id="areaInput" type="text" class="form-control col-md-3 col-xl-2 col-sm-6 mb-2 mb-sm-0" placeholder="Area" readonly>
+          <input id="areaInput" type="text" class="form-control col-md-2 col-xl-2 col-sm-6 mb-2 mb-sm-0" placeholder="Area" readonly>
           <input id="areaHidden" type="hidden" name="area" value="">
 
           <select id="grupSelect" name="grup" class="form-select col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0" aria-label="Grup select" required>
@@ -168,35 +168,35 @@
           <button type="button" id="resetButton" class="btn btn-danger d-block d-sm-inline-block col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0 w-sm-auto">Reset</button>
       </div>
 
-      <div class="table-responsive">
-          <table class="table table-striped mt-2">
-              <thead>
-                  <tr>
-                      <th>No</th>
-                      <th>Nama</th>
-                      <th>RIwayat / Peringkat</th>
-                      <th>Grup Saat Ini</th>
-                      <th>Area Saat Ini</th>
-                      <th>Pilih</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  @php $no = 1; @endphp
-                  @foreach($data as $athlete)
-                  <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $athlete->firstname }} {{ $athlete->lastname }}</td>
-                      <td>{{ $athlete->kalori ?? '0' }} Calories</td>
-                      <td>{{ $athlete->grup ?? 'Belum diatur' }}</td>
-                      <td>{{ $athlete->area ?? 'Belum diatur' }}</td>
-                      <td>
-                          <input type="checkbox" name="selected_athletes[]" value="{{ $athlete->id }}">
-                      </td>
-                  </tr>
-                  @endforeach
-              </tbody>
-          </table>
-      </div>
+		<div class="card-body table-responsive pt-5">
+			<table id="example" class="table table-striped" style="width:100%">
+				<thead>
+					<tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>RIwayat / Peringkat</th>
+            <th>Grup Saat Ini</th>
+            <th>Area Saat Ini</th>
+            <th>Pilih</th>
+					</tr>
+				</thead>
+				<tbody>
+          @php $no = 1; @endphp
+          @foreach($data as $athlete)
+          <tr>
+              <td>{{ $no++ }}</td>
+              <td>{{ $athlete->firstname }} {{ $athlete->lastname }}</td>
+              <td>{{ $athlete->kalori ?? '0' }} Calories</td>
+              <td>{{ $athlete->grup ?? 'Belum diatur' }}</td>
+              <td>{{ $athlete->area ?? 'Belum diatur' }}</td>
+              <td>
+                  <input type="checkbox" name="selected_athletes[]" value="{{ $athlete->id }}">
+              </td>
+          </tr>
+          @endforeach
+				</tbody>
+			</table>
+		</div>
   </form>
 
   </div>
