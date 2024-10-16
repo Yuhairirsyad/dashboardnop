@@ -219,17 +219,44 @@ public function update(Request $request, $id)
         return redirect()->route('inputgroup')->with('success', 'Data berhasil dihapus!');
     }
 
-    // START GROUPING
+// START GROUPING
 
-    //View dan tampilkan data atlit
-    public function grouping()
-    {
-        $data = Listdaftar::all();
-        $grups = GrupChallenges::all();
-        return view('admin.grouping', compact('data', 'grups'));
-    }
+public function grouping()
+{
+    $data = Listdaftar::all();
+    $grups = GrupChallenges::all();
+    return view('admin.grouping', compact('data', 'grups'));
+}
 
+public function updateAthletesGroup(Request $request)
+{
+    $validated = $request->validate([
+        'grup' => 'required',
+        'area' => 'required',
+        'selected_athletes' => 'required|array',
+    ]);
 
-    // END GROUPING
+    $updatedCount = Listdaftar::whereIn('id', $request->selected_athletes)
+        ->update([
+            'grup' => $request->grup,
+            'area' => $request->area,
+        ]);
+
+    return redirect()->route('grouping')
+        ->with('success', "Data $updatedCount atlet berhasil diperbarui.");
+}
+
+public function resetAthletesGroup(Request $request)
+{
+    $request->validate(['selected_athletes' => 'required|array']);
+
+    $updatedCount = Listdaftar::whereIn('id', $request->selected_athletes)
+        ->update(['grup' => null, 'area' => null]);
+
+    return redirect()->route('grouping')
+        ->with('success', "Data $updatedCount atlet berhasil direset.");
+}
+
+// END GROUPING
 
 }

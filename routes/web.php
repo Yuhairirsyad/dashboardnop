@@ -53,8 +53,11 @@ Route::get('/input', [adminController::class, 'inputPage'])->name('input');
 
 // Grouping
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
+Route::post('/update-athletes-group', [adminController::class, 'updateAthletesGroup'])->name('update.athletes.group');
+Route::post('/reset-athletes-group', [adminController::class, 'resetAthletesGroup'])->name('reset.athletes.group');
 
 
 
 Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
+
 
