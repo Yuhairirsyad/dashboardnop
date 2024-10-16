@@ -271,78 +271,45 @@ public function update(Request $request, $id)
     }
 
 
-    // START GROUPING
+// START GROUPING
 
-    //View dan tampilkan data atlit
-    public function grouping()
-    {
-        $data = Listdaftar::all();
-        $grups = GrupChallenges::all();
-        return view('admin.grouping', compact('data', 'grups'));
-    }
-
-    public function updateAthletesGroup(Request $request)
+public function grouping()
 {
-    try {
-        $validated = $request->validate([
-            'grup' => 'required',
-            'area' => 'required',
-            'selected_athletes' => 'required|array',
+    $data = Listdaftar::all();
+    $grups = GrupChallenges::all();
+    return view('admin.grouping', compact('data', 'grups'));
+}
+
+public function updateAthletesGroup(Request $request)
+{
+    $validated = $request->validate([
+        'grup' => 'required',
+        'area' => 'required',
+        'selected_athletes' => 'required|array',
+    ]);
+
+    $updatedCount = Listdaftar::whereIn('id', $request->selected_athletes)
+        ->update([
+            'grup' => $request->grup,
+            'area' => $request->area,
         ]);
 
-        $grup = $request->input('grup');
-        $area = $request->input('area');
-        $selectedAthletes = $request->input('selected_athletes');
-
-        \Log::info("Attempting to update athletes. Grup: $grup, Area: $area, Selected Athletes:", $selectedAthletes);
-
-        $updatedCount = Listdaftar::whereIn('id', $selectedAthletes)
-            ->update([
-                'grup' => $grup,
-                'area' => $area,
-            ]);
-
-        \Log::info("Updated $updatedCount athletes");
-
-        return redirect()->route('grouping')->with('success', "Data $updatedCount atlet berhasil diperbarui.");
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        \Log::error('Validation failed: ' . $e->getMessage());
-        return redirect()->route('grouping')->with('error', 'Validasi gagal: ' . $e->getMessage())->withErrors($e->errors())->withInput();
-    } catch (\Exception $e) {
-        \Log::error("Error updating athletes: " . $e->getMessage());
-        return redirect()->route('grouping')->with('error', 'Terjadi kesalahan saat memperbarui data atlet: ' . $e->getMessage());
-    }
+    return redirect()->route('grouping')
+        ->with('success', "Data $updatedCount atlet berhasil diperbarui.");
 }
 
 public function resetAthletesGroup(Request $request)
 {
-    try {
-        $request->validate([
-            'selected_athletes' => 'required|array',
-        ]);
+    $request->validate(['selected_athletes' => 'required|array']);
 
-        $selectedAthletes = $request->input('selected_athletes');
+    $updatedCount = Listdaftar::whereIn('id', $request->selected_athletes)
+        ->update(['grup' => null, 'area' => null]);
 
-        $updatedCount = Listdaftar::whereIn('id', $selectedAthletes)
-            ->update([
-                'grup' => null,
-                'area' => null,
-            ]);
-
-        \Log::info("Reset group and area for $updatedCount athletes");
-
-        return redirect()->route('grouping')->with('success', "Data $updatedCount atlet berhasil direset.");
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        \Log::error('Validation failed: ' . $e->getMessage());
-        return redirect()->route('grouping')->with('error', 'Validasi gagal: ' . $e->getMessage())->withErrors($e->errors())->withInput();
-    } catch (\Exception $e) {
-        \Log::error("Error resetting athletes group and area: " . $e->getMessage());
-        return redirect()->route('grouping')->with('error', 'Terjadi kesalahan saat mereset data atlet: ' . $e->getMessage());
-    }
+    return redirect()->route('grouping')
+        ->with('success', "Data $updatedCount atlet berhasil direset.");
 }
 
-
-    // END GROUPING
+// END GROUPING
 
 
 

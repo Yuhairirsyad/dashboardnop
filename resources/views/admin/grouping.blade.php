@@ -14,29 +14,22 @@
 
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('index')}}">
-				<i class="bi bi-speedometer"></i> <span class="align-middle">Dashboard</span>
+					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('quotes')}}">
-				<i class="bi bi-quote"></i> <span class="align-middle">Quotes</span>
+					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Quotes</span>
 				</a>
 			</li>
 			<li class="sidebar-item active">
 				<a class="sidebar-link" href="{{route('grouping')}}">
-				<i class="bi bi-people-fill"></i> <span class="align-middle">Grouping
-						Athlte</span>
+					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Grouping Athlte</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('input')}}">
-				<i class="bi bi-send-fill"></i> <span class="align-middle">Input Grup</span>
-				</a>
-			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link" href="{{route('challenges')}}">
-				<i class="bi bi-activity"></i> <span class="align-middle">Data
-						Challenges</span>
+					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Input Grup</span>
 				</a>
 			</li>
 
@@ -153,50 +146,6 @@
     <div class="col-md-10 col-lg-8 col-xl-6">
         <div class="card">
             <div align="center" class="card-header">
-
-                <h2 class="pt-2">GROUPING ATLET</h2>
-					<div class="d-flex flex-column flex-sm-row justify-content-center align-items-center">
-						<input id="areaInput" type="text" class="form-control col-md-3 col-xl-2 col-sm-6 mb-2 mb-sm-0" placeholder="Area" disabled>
-				
-						<select id="grupSelect" class="form-select col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0" aria-label="Grup select">
-							<option selected>Pilih Grup</option>
-							@foreach($grups as $grup)
-								<option value="{{ $grup->id }}" data-area="{{ $grup->area }}">{{ $grup->grup }}</option>
-							@endforeach
-						</select>
-			
-
-        <button type="button" class="btn btn-primary d-block d-sm-inline-block col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0 w-sm-auto">Simpan</button>
-    </div>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-responsive">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>NAMA ATHLETE</th>
-                            <th>RIWAYAT/PERINGKAT</th>
-                            <th>AREA</th>
-                            <th>GROUP</th>
-                            <th>PILIH</th>
-                            <th>AKSI</th>
-                        </tr>
-                    </thead>
-					<tbody>
-						@foreach ($data as $index => $athlete)
-						<tr>
-							<td>{{ $index + 1 }}</td>
-							<td>{{ $athlete->firstname . ' ' . $athlete->lastname }}</td>
-							<td>Kaloriii</td>
-							<td>{{ $athlete->area }}</td>
-							<td>{{ $athlete->grup }}</td>>
-							<td><input type="checkbox" name="" id=""></td>
-							<td></td>
-						</tr>
-						@endforeach
-					</tbody>
-                </table>
-
                 <div class="container">
                     <h2 class="pt-2">GROUPING ATLET</h2>
                     <form id="athleteForm" action="{{ route('update.athletes.group') }}" method="POST">
@@ -222,7 +171,6 @@
                                     <tr>
                                         <th>Pilih</th>
                                         <th>Nama</th>
-										<th>Riwayat / Peringkat</th>
                                         <th>Grup Saat Ini</th>
                                         <th>Area Saat Ini</th>
                                     </tr>
@@ -234,7 +182,6 @@
                                             <input type="checkbox" name="selected_athletes[]" value="{{ $athlete->id }}">
                                         </td>
                                         <td>{{ $athlete->firstname }} {{ $athlete->lastname }}</td>
-										<td></td>
                                         <td>{{ $athlete->grup ?? 'Belum diatur' }}</td>
                                         <td>{{ $athlete->area ?? 'Belum diatur' }}</td>
                                     </tr>
@@ -244,62 +191,24 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <script>
+document.getElementById('grupSelect').addEventListener('change', function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var area = selectedOption.getAttribute('data-area');
+    document.getElementById('areaInput').value = area;
+    document.getElementById('areaHidden').value = area;
+});
 
-	document.addEventListener('DOMContentLoaded', function() {
-		const grupSelect = document.getElementById('grupSelect');
-		const areaInput = document.getElementById('areaInput');
-	
-		// Function to update area based on selected grup
-		function updateArea() {
-			const selectedOption = grupSelect.options[grupSelect.selectedIndex];
-			const area = selectedOption.getAttribute('data-area');
-			areaInput.value = area || '';
-		}
-	
-		// Update area when grup is changed
-		grupSelect.addEventListener('change', updateArea);
-	
-		// Initial update
-		updateArea();
-	});
-
-	document.getElementById('grupSelect').addEventListener('change', function() {
-		var selectedOption = this.options[this.selectedIndex];
-		var area = selectedOption.getAttribute('data-area');
-		document.getElementById('areaInput').value = area;
-		document.getElementById('areaHidden').value = area;
-	});
-
-	document.getElementById('grupSelect').addEventListener('change', function() {
-		var selectedOption = this.options[this.selectedIndex];
-		var area = selectedOption.getAttribute('data-area');
-		document.getElementById('areaInput').value = area;
-		document.getElementById('areaHidden').value = area;
-	});
-
-	document.getElementById('resetButton').addEventListener('click', function() {
-		var form = document.getElementById('athleteForm');
-		form.action = "{{ route('reset.athletes.group') }}";
-		form.submit();
-	});
-
+document.getElementById('resetButton').addEventListener('click', function() {
+    var form = document.getElementById('athleteForm');
+    form.action = "{{ route('reset.athletes.group') }}";
+    form.submit();
+});
 	</script>
 
 @endsection
