@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Datachallenge;
 use App\Models\Listdaftar;
 use App\Models\Quotes;
 use App\Models\Input;
@@ -20,7 +21,8 @@ class adminController extends Controller
 {
 
     // LOGIN
-    public function adminlogin(){
+    public function adminlogin()
+    {
         return view('admin.login');
     }
 
@@ -30,14 +32,14 @@ class adminController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-    
+
         // akun admin 
         $adminuser = 'admin';
         $adminPassword = 'adminjateng#1';
-    
+
         if ($request->username === $adminuser && Hash::check($request->password, Hash::make($adminPassword))) {
             $admin = User::where('username', $adminuser)->first();
-    
+
             if (!$admin) {
                 $admin = User::create([
                     'username' => $adminuser,
@@ -45,19 +47,19 @@ class adminController extends Controller
                     'password' => Hash::make($adminPassword),
                 ]);
             }
-    
+
             Auth::login($admin);
             return redirect()->route('index')->with('successadm', 'Berhasil Login');
-        } 
-        else {
+        } else {
             return redirect()->route('login')->with('errorlgn', 'Username atau Password tidak valid.');
         }
     }
-    
-    
-    
 
-    public function logout(){
+
+
+
+    public function logout()
+    {
         Auth::logout();
         return redirect()->route('login')->with('logout', 'Berhasil Logout');
     }
@@ -93,7 +95,17 @@ class adminController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
 
         $data = $request->only([
-            'id_athlete', 'username', 'firstname', 'lastname', 'refresh_token', 'access_token', 'foto_profil', 'area', 'grup', 'warna', 'tgl_register'
+            'id_athlete',
+            'username',
+            'firstname',
+            'lastname',
+            'refresh_token',
+            'access_token',
+            'foto_profil',
+            'area',
+            'grup',
+            'warna',
+            'tgl_register'
         ]);
 
         Listdaftar::create($data);
@@ -130,7 +142,17 @@ class adminController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
 
         $data = $request->only([
-            'id_athlete', 'username', 'firstname', 'lastname', 'refresh_token', 'access_token', 'foto_profil', 'area', 'grup', 'warna', 'tgl_register'
+            'id_athlete',
+            'username',
+            'firstname',
+            'lastname',
+            'refresh_token',
+            'access_token',
+            'foto_profil',
+            'area',
+            'grup',
+            'warna',
+            'tgl_register'
         ]);
 
         Listdaftar::whereId($id)->update($data);
@@ -248,18 +270,18 @@ class adminController extends Controller
     }
 
     // Update data
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'area' => 'required',
-        'grup' => 'required',
-    ]);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'area' => 'required',
+            'grup' => 'required',
+        ]);
 
-    $data = Input::findOrFail($id);
-    $data->update($request->only(['area', 'grup']));
+        $data = Input::findOrFail($id);
+        $data->update($request->only(['area', 'grup']));
 
-    return redirect()->route('inputgroup')->with('success', 'Data berhasil diupdate!');
-}
+        return redirect()->route('inputgroup')->with('success', 'Data berhasil diupdate!');
+    }
 
     // Hapus data
     public function destroy($id)
@@ -271,55 +293,142 @@ public function update(Request $request, $id)
     }
 
 
-// START GROUPING
+    // START GROUPING
 
-public function grouping()
-{
-    $data = DB::table('list_daftar')
-    ->leftJoin('data_challenges', 'list_daftar.id_athlete', '=', 'data_challenges.id_athlete')
-    ->select('list_daftar.*', 'data_challenges.kalori')
-    ->get();
-    $grups = GrupChallenges::all();
-    return view('admin.grouping', compact('data', 'grups'));
-}
+    public function grouping()
+    {
+        $data = DB::table('list_daftar')
+            ->leftJoin('data_challenges', 'list_daftar.id_athlete', '=', 'data_challenges.id_athlete')
+            ->select('list_daftar.*', 'data_challenges.kalori')
+            ->get();
+        $grups = GrupChallenges::all();
+        return view('admin.grouping', compact('data', 'grups'));
+    }
 
-public function updateAthletesGroup(Request $request)
-{
-    $validated = $request->validate([
-        'grup' => 'required',
-        'area' => 'required',
-        'selected_athletes' => 'required|array',
-    ]);
-
-    $updatedCount = Listdaftar::whereIn('id', $request->selected_athletes)
-        ->update([
-            'grup' => $request->grup,
-            'area' => $request->area,
+    public function updateAthletesGroup(Request $request)
+    {
+        $validated = $request->validate([
+            'grup' => 'required',
+            'area' => 'required',
+            'selected_athletes' => 'required|array',
         ]);
 
-    return redirect()->route('grouping')
-        ->with('success', "Data $updatedCount atlet berhasil diperbarui.");
-}
+        $updatedCount = Listdaftar::whereIn('id', $request->selected_athletes)
+            ->update([
+                'grup' => $request->grup,
+                'area' => $request->area,
+            ]);
 
-public function resetAthletesGroup(Request $request)
-{
-    $request->validate(['selected_athletes' => 'required|array']);
+        return redirect()->route('grouping')
+            ->with('success', "Data $updatedCount atlet berhasil diperbarui.");
+    }
 
-    $updatedCount = Listdaftar::whereIn('id', $request->selected_athletes)
-        ->update(['grup' => null, 'area' => null]);
+    public function resetAthletesGroup(Request $request)
+    {
+        $request->validate(['selected_athletes' => 'required|array']);
 
-    return redirect()->route('grouping')
-        ->with('success', "Data $updatedCount atlet berhasil direset.");
-}
+        $updatedCount = Listdaftar::whereIn('id', $request->selected_athletes)
+            ->update(['grup' => null, 'area' => null]);
 
-// END GROUPING
+        return redirect()->route('grouping')
+            ->with('success', "Data $updatedCount atlet berhasil direset.");
+    }
+
+    // END GROUPING
 
 
 
     // DATA CHALLENGES
     public function grupchallenges(): Factory|View
     {
-        return view('admin.challenges');
+        $data = Datachallenge::get();
+        return view('admin.challenges', compact('data'));
     }
 
+    public function crtchallenges(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_athlete' => 'required',
+            'id_kegiatan' => 'required|unique:data_challenges',
+            'kegiatan' => 'required',
+            'distance' => 'required',
+            'kalori' => 'required',
+            'waktu' => 'required',
+            'tipe' => 'required',
+            'tanggal_kegiatan' => 'required',
+            'tanggal_ambil' => 'required',
+        ]);
+
+        if ($validator->fails())
+            return redirect()->back()->withInput()->withErrors($validator);
+
+        $data = $request->only([
+            'id_athlete',
+            'id_kegiatan',
+            'kegiatan',
+            'distance',
+            'kalori',
+            'waktu',
+            'tipe',
+            'tanggal_kegiatan',
+            'tanggal_ambil'
+        ]);
+
+        Datachallenge::create($data);
+
+        return redirect()->route('challenges')->with('successdtclgs', 'Data Berhasil Ditambahkan');
+    }
+
+    public function editchallenges(Request $request, $id)
+    {
+        $data = Datachallenge::find($id);
+        return view('admin.challenges', compact('data'));
+    }
+
+    public function updatechallenges(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_athlete' => 'required',
+            'id_kegiatan' => 'required',
+            'kegiatan' => 'required',
+            'distance' => 'required',
+            'kalori' => 'required',
+            'waktu' => 'required',
+            'tipe' => 'required',
+            'tanggal_kegiatan' => 'required',
+            'tanggal_ambil' => 'required',
+        ]);
+
+        if ($validator->fails())
+            return redirect()->back()->withInput()->withErrors($validator);
+
+        $data = $request->only([
+            'id_athlete',
+            'id_kegiatan',
+            'kegiatan',
+            'distance',
+            'kalori',
+            'waktu',
+            'tipe',
+            'tanggal_kegiatan',
+            'tanggal_ambil'
+        ]);
+
+        Datachallenge::whereId($id)->update($data);
+
+        return redirect()->route('challenges')->with('updchlgs', 'Data berhasil diperbarui');
+    }
+
+    public function deletechalenges(Request $request, $id)
+    {
+        $dataclgs = Datachallenge::find($id);
+
+        if (!$dataclgs) {
+            return redirect()->back()->with('error', 'data tidak ditemukan.');
+        }
+
+        $dataclgs->delete();
+
+        return redirect()->back()->with('successchalllges', 'Data berhasil dihapus.');
+    }
 }

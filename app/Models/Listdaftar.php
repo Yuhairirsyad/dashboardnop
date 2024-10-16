@@ -9,7 +9,6 @@ class Listdaftar extends Model
 {
     use HasFactory;
 
-    // Menentukan nama tabel jika tidak sesuai dengan konvensi penamaan tabel Laravel
     protected $table = 'list_daftar';
 
     protected $fillable = [
