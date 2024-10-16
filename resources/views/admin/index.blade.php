@@ -13,23 +13,29 @@
 
 			<li class="sidebar-item active">
 				<a class="sidebar-link" href="{{route('index')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+				<i class="bi bi-speedometer"></i> <span class="align-middle">Dashboard</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('quotes')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Quotes</span>
+				<i class="bi bi-quote"></i> <span class="align-middle">Quotes</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('grouping')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Grouping
+				<i class="bi bi-people-fill"></i> <span class="align-middle">Grouping
 						Athlte</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('input')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Input Grup</span>
+				<i class="bi bi-send-fill"></i> <span class="align-middle">Input Grup</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{route('challenges')}}">
+				<i class="bi bi-activity"></i> <span class="align-middle">Data
+						Challenges</span>
 				</a>
 			</li>
 
@@ -140,128 +146,140 @@
 @endsection
 @section('content')
 
+<style>
+	.btn-group-spaced .btn {
+		margin-right: 5px;
+	}
+
+	.btn-group-spaced .btn:last-child {
+		margin-right: 0;
+	}
+</style>
 
 <main class="content">
 	<div class="container-fluid p-0">
-	@if (session('success'))
-          <div class="alert alert-success">
-            {{ session('success') }}
-          </div>
-        @endif
-	@if (session('updusr'))
-          <div class="alert alert-success">
-            {{ session('updusr') }}
-          </div>
-        @endif
-	@if (session('error'))
-          <div class="alert alert-success">
-            {{ session('error') }}
-          </div>
-        @endif
+		@if (session('success'))
+			<div class="alert alert-success">
+				{{ session('success') }}
+			</div>
+		@endif
+		@if (session('updusr'))
+			<div class="alert alert-success">
+				{{ session('updusr') }}
+			</div>
+		@endif
+		@if (session('error'))
+			<div class="alert alert-success">
+				{{ session('error') }}
+			</div>
+		@endif
+		@if (session('successadm'))
+			<div class="alert alert-success">
+				{{ session('successadm') }}
+			</div>
+		@endif
 
 		<h1 class="h3 mb-3"><strong>User</strong> Dashboard</h1>
 		<a href="#" class="btn btn-primary mb-3 mt-2" data-bs-toggle="modal" data-bs-target="#tambahModal">
 			<b>+</b> Tambah Data
-			</a>
-			<!-- Modal Tambah Data -->
-			<div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="tambahModalLabel">Tambah Data Atlet</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<!-- Form Tambah Data -->
-							<form action="{{route('crtuser')}}" method="POST">
-								@csrf
-								<div class="mb-3">
-									<label for="id_athlete" class="form-label">ID Athlete</label>
-									<input type="text" class="form-control" id="id_athlete" name="id_athlete">
-									@error('id_athlete')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-								<div class="mb-3">
-									<label for="username" class="form-label">Username</label>
-									<input type="text" class="form-control" id="username" name="username">
-									@error('username')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-								<div class="mb-3">
-									<label for="firstname" class="form-label">First Name</label>
-									<input type="text" class="form-control" id="firstname" name="firstname">
-									@error('firstname')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-								<div class="mb-3">
-									<label for="lastname" class="form-label">Last Name</label>
-									<input type="text" class="form-control" id="lastname" name="lastname">
-									@error('lastname')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-								<div class="mb-3">
-									<label for="refresh_token" class="form-label">Refresh Token</label>
-									<input type="text" class="form-control" id="refresh_token" name="refresh_token">
-									@error('refresh_token')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-								<div class="mb-3">
-									<label for="access_token" class="form-label">Access Token</label>
-									<input type="text" class="form-control" id="access_token" name="access_token">
-									@error('access_token')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-								<div class="mb-3">
-									<label for="foto_profil" class="form-label">Foto Profil</label>
-									<input type="text" class="form-control" id="foto_profil" name="foto_profil">
-									@error('foto_profil')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-								<div class="mb-3">
-									<label for="area" class="form-label">Area</label>
-									<input type="text" class="form-control" id="area" name="area">
-								</div>
-								<div class="mb-3">
-									<label for="grup" class="form-label">Grup</label>
-									<input type="text" class="form-control" id="grup" name="grup">
-								</div>
-								<div class="mb-3">
-									<label for="warna" class="form-label">Warna</label>
-									<input type="text" class="form-control" id="warna" name="warna">
-									@error('warna')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-								<div class="mb-3">
-									<label for="tgl_register" class="form-label">Tanggal dan Waktu Register</label>
-									<input type="datetime-local" class="form-control" id="tgl_register"
-										name="tgl_register">
-										@error('tgl_register')
-									<small>{{$message}}</small>
-									@enderror
-								</div>
-
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-							<button type="submit" class="btn btn-primary">Simpan</button>
-						</div>
-						</form>
+		</a>
+		<!-- Modal Tambah Data -->
+		<div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="tambahModalLabel">Tambah Data Atlet</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
+					<div class="modal-body">
+						<!-- Form Tambah Data -->
+						<form action="{{route('crtuser')}}" method="POST">
+							@csrf
+							<div class="mb-3">
+								<label for="id_athlete" class="form-label">ID Athlete</label>
+								<input type="text" class="form-control" id="id_athlete" name="id_athlete">
+								@error('id_athlete')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+							<div class="mb-3">
+								<label for="username" class="form-label">Username</label>
+								<input type="text" class="form-control" id="username" name="username">
+								@error('username')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+							<div class="mb-3">
+								<label for="firstname" class="form-label">First Name</label>
+								<input type="text" class="form-control" id="firstname" name="firstname">
+								@error('firstname')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+							<div class="mb-3">
+								<label for="lastname" class="form-label">Last Name</label>
+								<input type="text" class="form-control" id="lastname" name="lastname">
+								@error('lastname')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+							<div class="mb-3">
+								<label for="refresh_token" class="form-label">Refresh Token</label>
+								<input type="text" class="form-control" id="refresh_token" name="refresh_token">
+								@error('refresh_token')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+							<div class="mb-3">
+								<label for="access_token" class="form-label">Access Token</label>
+								<input type="text" class="form-control" id="access_token" name="access_token">
+								@error('access_token')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+							<div class="mb-3">
+								<label for="foto_profil" class="form-label">Foto Profil</label>
+								<input type="text" class="form-control" id="foto_profil" name="foto_profil">
+								@error('foto_profil')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+							<div class="mb-3">
+								<label for="area" class="form-label">Area</label>
+								<input type="text" class="form-control" id="area" name="area">
+							</div>
+							<div class="mb-3">
+								<label for="grup" class="form-label">Grup</label>
+								<input type="text" class="form-control" id="grup" name="grup">
+							</div>
+							<div class="mb-3">
+								<label for="warna" class="form-label">Warna</label>
+								<input type="text" class="form-control" id="warna" name="warna">
+								@error('warna')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+							<div class="mb-3">
+								<label for="tgl_register" class="form-label">Tanggal dan Waktu Register</label>
+								<input type="datetime-local" class="form-control" id="tgl_register" name="tgl_register">
+								@error('tgl_register')
+									<small>{{$message}}</small>
+								@enderror
+							</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
+					</div>
+					</form>
 				</div>
 			</div>
+		</div>
 
 
 
-			<!-- <div class="row">
+		<!-- <div class="row">
 			<div class="col-xl-6 col-xxl-5 d-flex">
 				<div class="w-100">
 					<div class="row">
@@ -527,124 +545,127 @@
 				</div>
 			</div>
 		</div> -->
-			<div class="card-body table-responsive p-0">
-				<table id="example" class="table table-striped" style="width:100%">
-					<thead>
+		<div class="card-body table-responsive p-0">
+			<table id="example" class="table table-striped" style="width:100%">
+				<thead>
+					<tr>
+						<th>Action</th>
+						<th>No</th>
+						<th>ID Athlete</th>
+						<th>Username</th>
+						<th>Firstname</th>
+						<th>Lastname</th>
+						<th>Refresh Token</th>
+						<th>Access Token</th>
+						<th>Foto Profil</th>
+						<th>Area</th>
+						<th>Grup</th>
+						<th>Warna</th>
+						<th>Tanggal Register</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach ($data as $d)
 						<tr>
-							<th>Action</th>
-							<th>No</th>
-							<th>ID Athlete</th>
-							<th>Username</th>
-							<th>Firstname</th>
-							<th>Lastname</th>
-							<th>Refresh Token</th>
-							<th>Access Token</th>
-							<th>Foto Profil</th>
-							<th>Area</th>
-							<th>Grup</th>
-							<th>Warna</th>
-							<th>Tanggal Register</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach ($data as $d)
-							<tr>
-								<td>
-									<a href="#" class="btn btn-primary" data-bs-toggle="modal"
+							<td>
+								<div class="btn-group btn-group-spaced" role="group">
+									<button type="button" class="btn btn-xl btn-primary" data-bs-toggle="modal"
 										data-bs-target="#editModal{{ $d->id }}">
-										<i class="bi bi-pencil"></i> Edit
-									</a>
+										<i class="bi bi-pencil-square"></i>
+									</button>
+									<button type="button" class="btn btn-xl btn-danger" data-bs-toggle="modal"
+										data-bs-target="#modal-hapus{{ $d->id }}">
+										<i class="bi bi-trash"></i>
+									</button>
+								</div>
 
-									<!-- Modal Bootstrap -->
-									<div class="modal fade" id="editModal{{ $d->id }}" tabindex="-1"
-										aria-labelledby="editModalLabel{{ $d->id }}" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="editModalLabel{{ $d->id }}">Edit Quotes</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal"
-														aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<!-- Form Edit data -->
-													<form action="{{ route('updateusr', ['id' => $d->id]) }}" method="POST">
-														@csrf
-														@method('POST')
-														<div class="mb-3">
-															<label for="id_athlete" class="form-label">ID Athlete</label>
-															<input type="text" class="form-control" id="id_athlete"
-																name="id_athlete" value="{{$d->id_athlete}}">
-														</div>
-														<div class="mb-3">
-															<label for="username" class="form-label">Username</label>
-															<input type="text" class="form-control" id="username"
-																name="username" value="{{$d->username}} ">
-														</div>
-														<div class="mb-3">
-															<label for="firstname" class="form-label">First Name</label>
-															<input type="text" class="form-control" id="firstname"
-																name="firstname" value="{{$d->firstname}}" >
-														</div>
-														<div class="mb-3">
-															<label for="lastname" class="form-label">Last Name</label>
-															<input type="text" class="form-control" id="lastname"
-																name="lastname" value="{{$d->lastname}}" >
-														</div>
-														<div class="mb-3">
-															<label for="refresh_token" class="form-label">Refresh
-																Token</label>
-															<input type="text" class="form-control" id="refresh_token"
-																name="refresh_token" value="{{$d->refresh_token}}">
-														</div>
-														<div class="mb-3">
-															<label for="access_token" class="form-label">Access
-																Token</label>
-															<input type="text" class="form-control" id="access_token"
-																name="access_token"  value="{{$d->access_token}}">
+								<!-- Modal Edit -->
+								<div class="modal fade" id="editModal{{ $d->id }}" tabindex="-1"
+									aria-labelledby="editModalLabel{{ $d->id }}" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="editModalLabel{{ $d->id }}">Edit Quotes</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<!-- Form Edit data -->
+												<form action="{{ route('updateusr', ['id' => $d->id]) }}" method="POST">
+													@csrf
+													@method('POST')
+													<div class="mb-3">
+														<label for="id_athlete" class="form-label">ID Athlete</label>
+														<input type="text" class="form-control" id="id_athlete"
+															name="id_athlete" value="{{$d->id_athlete}}">
+													</div>
+													<div class="mb-3">
+														<label for="username" class="form-label">Username</label>
+														<input type="text" class="form-control" id="username"
+															name="username" value="{{$d->username}} ">
+													</div>
+													<div class="mb-3">
+														<label for="firstname" class="form-label">First Name</label>
+														<input type="text" class="form-control" id="firstname"
+															name="firstname" value="{{$d->firstname}}">
+													</div>
+													<div class="mb-3">
+														<label for="lastname" class="form-label">Last Name</label>
+														<input type="text" class="form-control" id="lastname"
+															name="lastname" value="{{$d->lastname}}">
+													</div>
+													<div class="mb-3">
+														<label for="refresh_token" class="form-label">Refresh
+															Token</label>
+														<input type="text" class="form-control" id="refresh_token"
+															name="refresh_token" value="{{$d->refresh_token}}">
+													</div>
+													<div class="mb-3">
+														<label for="access_token" class="form-label">Access
+															Token</label>
+														<input type="text" class="form-control" id="access_token"
+															name="access_token" value="{{$d->access_token}}">
 
-														</div>
-														<div class="mb-3">
-															<label for="foto_profil" class="form-label">Foto Profil</label>
-															<input type="text" class="form-control" id="foto_profil"
-																name="foto_profil"  value="{{$d->foto_profil}}">
+													</div>
+													<div class="mb-3">
+														<label for="foto_profil" class="form-label">Foto Profil</label>
+														<input type="text" class="form-control" id="foto_profil"
+															name="foto_profil" value="{{$d->foto_profil}}">
 
-														</div>
-														<div class="mb-3">
-															<label for="area" class="form-label">Area</label>
-															<input type="text" class="form-control" id="area" name="area" value="{{$d->area}}">
-														</div>
-														<div class="mb-3">
-															<label for="grup" class="form-label">Grup</label>
-															<input type="text" class="form-control" id="grup" name="grup" value="{{$d->grup}}">
-														</div>
-														<div class="mb-3">
-															<label for="warna" class="form-label">Warna</label>
-															<input type="text" class="form-control" id="warna" name="warna" value="{{$d->warna}}">
-														</div>
-														<div class="mb-3">
-															<label for="tgl_register" class="form-label">Tanggal dan Waktu
-																Register</label>
-															<input type="datetime-local" class="form-control"
-																id="tgl_register" name="tgl_register" value="{{$d->tgl_register}}">
-														</div>
+													</div>
+													<div class="mb-3">
+														<label for="area" class="form-label">Area</label>
+														<input type="text" class="form-control" id="area" name="area"
+															value="{{$d->area}}">
+													</div>
+													<div class="mb-3">
+														<label for="grup" class="form-label">Grup</label>
+														<input type="text" class="form-control" id="grup" name="grup"
+															value="{{$d->grup}}">
+													</div>
+													<div class="mb-3">
+														<label for="warna" class="form-label">Warna</label>
+														<input type="text" class="form-control" id="warna" name="warna"
+															value="{{$d->warna}}">
+													</div>
+													<div class="mb-3">
+														<label for="tgl_register" class="form-label">Tanggal dan Waktu
+															Register</label>
+														<input type="datetime-local" class="form-control" id="tgl_register"
+															name="tgl_register" value="{{$d->tgl_register}}">
+													</div>
 
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary"
-																data-bs-dismiss="modal">Close</button>
-															<button type="submit" class="btn btn-primary">Save
-																changes</button>
-														</div>
-													</form>
-												</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Close</button>
+														<button type="submit" class="btn btn-primary">Save
+															changes</button>
+													</div>
+												</form>
 											</div>
 										</div>
 									</div>
-
-
-
-									<a data-bs-toggle="modal" data-bs-target="#modal-hapus{{ $d->id }}" class="btn btn-danger">
-									<i class="bi bi-trash"></i> Hapus
-								</a>
+								</div>
 
 								<!-- Modal Konfirmasi Hapus -->
 								<div class="modal fade" id="modal-hapus{{ $d->id }}" tabindex="-1"
@@ -671,42 +692,42 @@
 										</div>
 									</div>
 								</div>
-								</td>
-								<td>{{ $loop->iteration }}</td>
-								<td>{{ $d->id_athlete }}</td>
-								<td>{{ $d->username }}</td>
-								<td>{{$d->firstname}}</td>
-								<td>{{$d->lastname}}</td>
-								<td>{{$d->refresh_token}}</td>
-								<td>{{$d->access_token}}</td>
-								<td>{{$d->foto_profil}}</td>
-								<td>{{$d->area}}</td>
-								<td>{{$d->grup}}</td>
-								<td>{{$d->warna}}</td>
-								<td>{{$d->tgl_register}}</td>
-							</tr>
-						@endforeach
-					</tbody>
-					<tfoot>
-						<tr>
-							<th>No</th>
-							<th>ID Athlete</th>
-							<th>Username</th>
-							<th>Firstname</th>
-							<th>Lastname</th>
-							<th>Refresh Token</th>
-							<th>Access Token</th>
-							<th>Foto Profil</th>
-							<th>Area</th>
-							<th>Grup</th>
-							<th>Warna</th>
-							<th>Tanggal Register</th>
-							<th>Action</th>
+							</td>
+							<td>{{ $loop->iteration }}</td>
+							<td>{{ $d->id_athlete }}</td>
+							<td>{{ $d->username }}</td>
+							<td>{{$d->firstname}}</td>
+							<td>{{$d->lastname}}</td>
+							<td>{{$d->refresh_token}}</td>
+							<td>{{$d->access_token}}</td>
+							<td>{{$d->foto_profil}}</td>
+							<td>{{$d->area}}</td>
+							<td>{{$d->grup}}</td>
+							<td>{{$d->warna}}</td>
+							<td>{{$d->tgl_register}}</td>
 						</tr>
-					</tfoot>
-				</table>
+					@endforeach
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>Action</th>
+						<th>No</th>
+						<th>ID Athlete</th>
+						<th>Username</th>
+						<th>Firstname</th>
+						<th>Lastname</th>
+						<th>Refresh Token</th>
+						<th>Access Token</th>
+						<th>Foto Profil</th>
+						<th>Area</th>
+						<th>Grup</th>
+						<th>Warna</th>
+						<th>Tanggal Register</th>
+					</tr>
+				</tfoot>
+			</table>
 
-			</div>
+		</div>
 	</div>
 </main>
 @endsection

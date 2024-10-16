@@ -13,22 +13,29 @@
 
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('index')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+				<i class="bi bi-speedometer"></i> <span class="align-middle">Dashboard</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('quotes')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Quotes</span>
+				<i class="bi bi-quote"></i> <span class="align-middle">Quotes</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{route('grouping')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Grouping Athlte</span>
+				<i class="bi bi-people-fill"></i> <span class="align-middle">Grouping
+						Athlte</span>
 				</a>
 			</li>
 			<li class="sidebar-item active">
 				<a class="sidebar-link" href="{{route('input')}}">
-					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Input Grup</span>
+				<i class="bi bi-send-fill"></i> <span class="align-middle">Input Grup</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{route('challenges')}}">
+				<i class="bi bi-activity"></i> <span class="align-middle">Data
+						Challenges</span>
 				</a>
 			</li>
 
@@ -142,9 +149,9 @@
 <main class="content">
 	<div class="container-fluid p-0">
 		<h1 class="h3 mb-3"><strong>Group</strong> Dashboard</h1>
-		<form action="{{ route('input.store') }}" method="POST">
+		<form action="{{ route('input.store') }}" method="POST" style="background-color: gainsboro">
 			@csrf
-			<div class="row">
+			<div class="row pb-3 pt-2">
 				<!-- Input Group Section -->
 				<div class="col-md-6">
 					<div>
@@ -176,8 +183,8 @@
 		</form>
 
 		<!-- Table for displaying group data -->
-		<div class="card-body table-responsive p-0">
-			<table class="table">
+		<div class="card-body table-responsive pt-5">
+			<table id="example" class="table table-striped" style="width:100%">
 				<thead>
 					<tr>
 						<th>No</th>
@@ -248,7 +255,7 @@
 												aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
-											Apakah Anda yakin ingin menghapus quote ini?
+											Apakah anda yakin akan menghapus grup ini?
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"

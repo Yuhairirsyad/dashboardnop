@@ -24,15 +24,20 @@ use Maatwebsite\Excel\Facades\Excel;
 //     return view('admin.main');
 // });
 
+// LOGIN
+Route::get('/login', [adminController::class, 'adminlogin'])->name('login');
+Route::post('/login-proses', [adminController::class, 'login_proses'])->name('login-proses');
+Route::get('/logout', [adminController::class, 'logout'])->name('logout');
+
+
 // ADMIN
-//  DASHBOARD ADMIN
-Route::get('/', [adminController::class, 'index'])->name('index');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    //  DASHBOARD ADMIN
+Route::get('/admindashboard', [adminController::class, 'index'])->name('index');
 Route::post('/crtuser', [adminController::class, 'crtuser'])->name('crtuser');
 Route::get('/editusr/{id}', [adminController::class, 'editusr'])->name('editusr');
 Route::post('/updateusr/{id}', [adminController::class, 'updateusr'])->name('updateusr');
 Route::delete('/deleteusr/{id}', [adminController::class, 'deleteusr'])->name('deleteusr');
-
-
 
 // QUOTES
 Route::get('/quotes', [adminController::class, 'quotes'])->name('quotes');
@@ -51,10 +56,15 @@ Route::delete('/input/destroy/{id}', [adminController::class, 'destroy'])->name(
 // INPUT PAGE (nama rute diubah untuk menghindari duplikasi)
 Route::get('/input', [adminController::class, 'inputPage'])->name('input');
 
-// Grouping
-Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
-
-
-
 Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
 
+// INPUT GRUP CHALLENGES
+Route::get('/challenges', [adminController::class, 'grupchallenges'])->name('challenges');
+
+// GROUPING
+Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
+Route::post('/update-athletes-group', [adminController::class, 'updateAthletesGroup'])->name('update.athletes.group');
+Route::post('/reset-athletes-group', [adminController::class, 'resetAthletesGroup'])->name('reset.athletes.group');
+
+
+});

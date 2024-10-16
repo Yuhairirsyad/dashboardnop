@@ -6,14 +6,65 @@ use App\Models\Listdaftar;
 use App\Models\Quotes;
 use App\Models\Input;
 use App\Models\GrupChallenges;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class adminController extends Controller
 {
+
+    // LOGIN
+    public function adminlogin(){
+        return view('admin.login');
+    }
+
+    public function login_proses(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+    
+        // akun admin 
+        $adminuser = 'admin';
+        $adminPassword = 'adminjateng#1';
+    
+        if ($request->username === $adminuser && Hash::check($request->password, Hash::make($adminPassword))) {
+            $admin = User::where('username', $adminuser)->first();
+    
+            if (!$admin) {
+                $admin = User::create([
+                    'username' => $adminuser,
+                    'level' => 'admin',
+                    'password' => Hash::make($adminPassword),
+                ]);
+            }
+    
+            Auth::login($admin);
+            return redirect()->route('index')->with('successadm', 'Berhasil Login');
+        } 
+        else {
+            return redirect()->route('login')->with('errorlgn', 'Username atau Password tidak valid.');
+        }
+    }
+    
+    
+    
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login')->with('logout', 'Berhasil Logout');
+    }
+
+    // END LOGIN
+
+
     // INDEX
     public function index()
     {
@@ -173,7 +224,7 @@ class adminController extends Controller
     public function inputPage(): Factory|View
     {
         $data = Input::all();
-        return view('admin.input', compact('data')); // Bisa ubah view jika berbeda
+        return view('admin.input', compact('data'));
     }
 
     // Simpan data ke database
@@ -219,6 +270,7 @@ public function update(Request $request, $id)
         return redirect()->route('inputgroup')->with('success', 'Data berhasil dihapus!');
     }
 
+
     // START GROUPING
 
     //View dan tampilkan data atlit
@@ -229,7 +281,75 @@ public function update(Request $request, $id)
         return view('admin.grouping', compact('data', 'grups'));
     }
 
+    public function updateAthletesGroup(Request $request)
+{
+    try {
+        $validated = $request->validate([
+            'grup' => 'required',
+            'area' => 'required',
+            'selected_athletes' => 'required|array',
+        ]);
+
+        $grup = $request->input('grup');
+        $area = $request->input('area');
+        $selectedAthletes = $request->input('selected_athletes');
+
+        \Log::info("Attempting to update athletes. Grup: $grup, Area: $area, Selected Athletes:", $selectedAthletes);
+
+        $updatedCount = Listdaftar::whereIn('id', $selectedAthletes)
+            ->update([
+                'grup' => $grup,
+                'area' => $area,
+            ]);
+
+        \Log::info("Updated $updatedCount athletes");
+
+        return redirect()->route('grouping')->with('success', "Data $updatedCount atlet berhasil diperbarui.");
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        \Log::error('Validation failed: ' . $e->getMessage());
+        return redirect()->route('grouping')->with('error', 'Validasi gagal: ' . $e->getMessage())->withErrors($e->errors())->withInput();
+    } catch (\Exception $e) {
+        \Log::error("Error updating athletes: " . $e->getMessage());
+        return redirect()->route('grouping')->with('error', 'Terjadi kesalahan saat memperbarui data atlet: ' . $e->getMessage());
+    }
+}
+
+public function resetAthletesGroup(Request $request)
+{
+    try {
+        $request->validate([
+            'selected_athletes' => 'required|array',
+        ]);
+
+        $selectedAthletes = $request->input('selected_athletes');
+
+        $updatedCount = Listdaftar::whereIn('id', $selectedAthletes)
+            ->update([
+                'grup' => null,
+                'area' => null,
+            ]);
+
+        \Log::info("Reset group and area for $updatedCount athletes");
+
+        return redirect()->route('grouping')->with('success', "Data $updatedCount atlet berhasil direset.");
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        \Log::error('Validation failed: ' . $e->getMessage());
+        return redirect()->route('grouping')->with('error', 'Validasi gagal: ' . $e->getMessage())->withErrors($e->errors())->withInput();
+    } catch (\Exception $e) {
+        \Log::error("Error resetting athletes group and area: " . $e->getMessage());
+        return redirect()->route('grouping')->with('error', 'Terjadi kesalahan saat mereset data atlet: ' . $e->getMessage());
+    }
+}
+
 
     // END GROUPING
+
+
+
+    // DATA CHALLENGES
+    public function grupchallenges(): Factory|View
+    {
+        return view('admin.challenges');
+    }
 
 }
