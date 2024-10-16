@@ -153,54 +153,70 @@
     <div class="col-md-10 col-lg-8 col-xl-6">
         <div class="card">
             <div align="center" class="card-header">
-                <h2 class="pt-2">GROUPING ATLET</h2>
-					<div class="d-flex flex-column flex-sm-row justify-content-center align-items-center">
-						<input id="areaInput" type="text" class="form-control col-md-3 col-xl-2 col-sm-6 mb-2 mb-sm-0" placeholder="Area" disabled>
-				
-						<select id="grupSelect" class="form-select col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0" aria-label="Grup select">
-							<option selected>Pilih Grup</option>
-							@foreach($grups as $grup)
-								<option value="{{ $grup->id }}" data-area="{{ $grup->area }}">{{ $grup->grup }}</option>
-							@endforeach
-						</select>
-			
-
-        <button type="button" class="btn btn-primary d-block d-sm-inline-block col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0 w-sm-auto">Simpan</button>
-    </div>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-responsive">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>NAMA ATHLETE</th>
-                            <th>RIWAYAT/PERINGKAT</th>
-                            <th>AREA</th>
-                            <th>GROUP</th>
-                            <th>PILIH</th>
-                            <th>AKSI</th>
-                        </tr>
-                    </thead>
-					<tbody>
-						@foreach ($data as $index => $athlete)
-						<tr>
-							<td>{{ $index + 1 }}</td>
-							<td>{{ $athlete->firstname . ' ' . $athlete->lastname }}</td>
-							<td></td>
-							<td>{{ $athlete->area }}</td>
-							<td>{{ $athlete->grup }}</td>>
-							<td><input type="checkbox" name="" id=""></td>
-							<td></td>
-						</tr>
-						@endforeach
-					</tbody>
-                </table>
+                <div class="container">
+                    <h2 class="pt-2">GROUPING ATLET</h2>
+                    <form id="athleteForm" action="{{ route('update.athletes.group') }}" method="POST">
+                        @csrf
+                        <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center mb-3">
+                            <input id="areaInput" type="text" class="form-control col-md-3 col-xl-2 col-sm-6 mb-2 mb-sm-0" placeholder="Area" readonly>
+                            <input id="areaHidden" type="hidden" name="area" value="">
+                
+                            <select id="grupSelect" name="grup" class="form-select col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0" aria-label="Grup select" required>
+                                <option selected value="">Pilih Grup</option>
+                                @foreach($grups as $grup)
+                                    <option value="{{ $grup->grup }}" data-area="{{ $grup->area }}">{{ $grup->grup }}</option>
+                                @endforeach
+                            </select>
+                
+                            <button type="submit" class="btn btn-primary d-block d-sm-inline-block col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0 w-sm-auto">Simpan</button>
+                            <button type="button" id="resetButton" class="btn btn-danger d-block d-sm-inline-block col-md-3 col-xl-2 col-sm-6 mx-sm-2 mb-2 mb-sm-0 w-sm-auto">Reset</button>
+                        </div>
+                
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Pilih</th>
+                                        <th>Nama</th>
+										<th>Riwayat / Peringkat</th>
+                                        <th>Grup Saat Ini</th>
+                                        <th>Area Saat Ini</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($data as $athlete)
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="selected_athletes[]" value="{{ $athlete->id }}">
+                                        </td>
+                                        <td>{{ $athlete->firstname }} {{ $athlete->lastname }}</td>
+										<td></td>
+                                        <td>{{ $athlete->grup ?? 'Belum diatur' }}</td>
+                                        <td>{{ $athlete->area ?? 'Belum diatur' }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <script>
+
 	document.addEventListener('DOMContentLoaded', function() {
 		const grupSelect = document.getElementById('grupSelect');
 		const areaInput = document.getElementById('areaInput');
@@ -218,6 +234,27 @@
 		// Initial update
 		updateArea();
 	});
+
+	document.getElementById('grupSelect').addEventListener('change', function() {
+		var selectedOption = this.options[this.selectedIndex];
+		var area = selectedOption.getAttribute('data-area');
+		document.getElementById('areaInput').value = area;
+		document.getElementById('areaHidden').value = area;
+	});
+
+	document.getElementById('grupSelect').addEventListener('change', function() {
+		var selectedOption = this.options[this.selectedIndex];
+		var area = selectedOption.getAttribute('data-area');
+		document.getElementById('areaInput').value = area;
+		document.getElementById('areaHidden').value = area;
+	});
+
+	document.getElementById('resetButton').addEventListener('click', function() {
+		var form = document.getElementById('athleteForm');
+		form.action = "{{ route('reset.athletes.group') }}";
+		form.submit();
+	});
+
 	</script>
 
 @endsection
