@@ -275,7 +275,10 @@ public function update(Request $request, $id)
 
 public function grouping()
 {
-    $data = Listdaftar::all();
+    $data = DB::table('list_daftar')
+    ->leftJoin('data_challenges', 'list_daftar.id_athlete', '=', 'data_challenges.id_athlete')
+    ->select('list_daftar.*', 'data_challenges.kalori')
+    ->get();
     $grups = GrupChallenges::all();
     return view('admin.grouping', compact('data', 'grups'));
 }
