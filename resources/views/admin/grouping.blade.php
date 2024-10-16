@@ -179,7 +179,7 @@
 						<tr>
 							<td>{{ $index + 1 }}</td>
 							<td>{{ $athlete->firstname . ' ' . $athlete->lastname }}</td>
-							<td></td>
+							<td>Kaloriii</td>
 							<td>{{ $athlete->area }}</td>
 							<td>{{ $athlete->grup }}</td>>
 							<td><input type="checkbox" name="" id=""></td>
