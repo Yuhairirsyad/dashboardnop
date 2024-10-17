@@ -174,7 +174,7 @@
 					<tr>
             <th>No</th>
             <th>Nama</th>
-            <th>RIwayat / Peringkat</th>
+            <th>Riwayat / Peringkat</th>
             <th>Grup Saat Ini</th>
             <th>Area Saat Ini</th>
             <th>Pilih</th>
@@ -186,7 +186,7 @@
           <tr>
               <td>{{ $no++ }}</td>
               <td>{{ $athlete->firstname }} {{ $athlete->lastname }}</td>
-              <td>{{ $athlete->kalori ?? '0' }} Calories</td>
+              <td>{{ $athlete->distance ?? '0' }} Km</td>
               <td>{{ $athlete->grup ?? 'Belum diatur' }}</td>
               <td>{{ $athlete->area ?? 'Belum diatur' }}</td>
               <td>
