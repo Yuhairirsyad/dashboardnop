@@ -71,4 +71,4 @@ Route::post('/update-athletes-group', [adminController::class, 'updateAthletesGr
 Route::post('/reset-athletes-group', [adminController::class, 'resetAthletesGroup'])->name('reset.athletes.group');
 });
 
-Route::get('/', [DashboardController::class, 'index'])->name('index');
+Route::get('/', [DashboardController::class, 'dsbusr'])->name('dsbusr');
