@@ -299,7 +299,7 @@ class adminController extends Controller
     {
         $data = DB::table('list_daftar')
             ->leftJoin('data_challenges', 'list_daftar.id_athlete', '=', 'data_challenges.id_athlete')
-            ->select('list_daftar.*', 'data_challenges.kalori')
+            ->select('list_daftar.*', 'data_challenges.distance')
             ->get();
         $grups = GrupChallenges::all();
         return view('admin.grouping', compact('data', 'grups'));
