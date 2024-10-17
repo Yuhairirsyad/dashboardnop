@@ -65,12 +65,10 @@ Route::get('/editchallenges/{id}', [adminController::class, 'editchallenges'])->
 Route::post('/updatechallenges/{id}', [adminController::class, 'updatechallenges'])->name('updatechallenges');
 Route::delete('/deletechalenges/{id}', [adminController::class, 'deletechalenges'])->name('deletechalenges');
 
-
-
 // GROUPING
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
 Route::post('/update-athletes-group', [adminController::class, 'updateAthletesGroup'])->name('update.athletes.group');
 Route::post('/reset-athletes-group', [adminController::class, 'resetAthletesGroup'])->name('reset.athletes.group');
-
-
 });
+
+Route::get('/', [DashboardController::class, 'index'])->name('index');
