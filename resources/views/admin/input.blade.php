@@ -149,11 +149,11 @@
 <main class="content">
 	<div class="container-fluid p-0">
 		<h1 class="h3 mb-3"><strong>Group</strong> Dashboard</h1>
-		<form action="{{ route('input.store') }}" method="POST" style="background-color: gainsboro">
+		<form action="{{ route('input.store') }}" method="POST" style="background-color: gainsboro" class="rounded-3">
 			@csrf
 			<div class="row pb-3 pt-2">
 				<!-- Input Group Section -->
-				<div class="col-md-6">
+				<div class="col-md-6 mx-3">
 					<div>
 						<p>PILIH AREA</p>
 					</div>

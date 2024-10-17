@@ -58,8 +58,14 @@ Route::get('/input', [adminController::class, 'inputPage'])->name('input');
 
 Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
 
-// INPUT GRUP CHALLENGES
+// GRUP CHALLENGES
 Route::get('/challenges', [adminController::class, 'grupchallenges'])->name('challenges');
+Route::post('/crtchallenges', [adminController::class, 'crtchallenges'])->name('crtchallenges');
+Route::get('/editchallenges/{id}', [adminController::class, 'editchallenges'])->name('editchallenges');
+Route::post('/updatechallenges/{id}', [adminController::class, 'updatechallenges'])->name('updatechallenges');
+Route::delete('/deletechalenges/{id}', [adminController::class, 'deletechalenges'])->name('deletechalenges');
+
+
 
 // GROUPING
 Route::get('/grouping', [adminController::class, 'grouping'])->name('grouping');
