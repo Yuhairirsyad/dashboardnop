@@ -72,3 +72,4 @@ Route::post('/reset-athletes-group', [adminController::class, 'resetAthletesGrou
 });
 
 Route::get('/', [DashboardController::class, 'dsbusr'])->name('dsbusr');
+Route::get('/dashgrub', [DashboardController::class, 'dashgrub'])->name('dashgrub');
