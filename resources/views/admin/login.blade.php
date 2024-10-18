@@ -121,7 +121,7 @@
     <div class="content">
         <div class="wrapper">
             <div class="logo">
-                <img src="{{asset('img/images.jpg')}}" alt="" width="100">
+                <img src="{{asset('img/images.png')}}" alt="" width="100">
             </div>
             <div class="text-center mt-4 name">
                 Telkomsel
