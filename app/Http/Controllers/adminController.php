@@ -110,7 +110,7 @@ class adminController extends Controller
 
         Listdaftar::create($data);
 
-        return redirect()->route('index')->with('success', 'Data Berhasil Ditambahkan');
+        return redirect()->route('index')->with('successtmbh', 'Data Berhasil Ditambahkan');
     }
 
     // EDIT USER
@@ -171,7 +171,7 @@ class adminController extends Controller
 
         $datausr->delete();
 
-        return redirect()->back()->with('success', 'Data berhasil dihapus.');
+        return redirect()->back()->with('successhps', 'Data berhasil dihapus.');
     }
 
     // END INDEX
@@ -259,7 +259,7 @@ class adminController extends Controller
 
         Input::create($request->only(['area', 'grup']));
 
-        return redirect()->route('inputgroup')->with('success', 'Data berhasil disimpan!');
+        return redirect()->route('inputgroup')->with('successinpt', 'Data berhasil disimpan!');
     }
 
     // Tampilkan halaman edit
@@ -280,7 +280,7 @@ class adminController extends Controller
         $data = Input::findOrFail($id);
         $data->update($request->only(['area', 'grup']));
 
-        return redirect()->route('inputgroup')->with('success', 'Data berhasil diupdate!');
+        return redirect()->route('inputgroup')->with('successupdtinpt', 'Data berhasil diupdate!');
     }
 
     // Hapus data
@@ -289,7 +289,7 @@ class adminController extends Controller
         $data = Input::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('inputgroup')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('inputgroup')->with('successhpsinpt', 'Data berhasil dihapus!');
     }
 
 
@@ -320,7 +320,7 @@ class adminController extends Controller
             ]);
 
         return redirect()->route('grouping')
-            ->with('success', "Data $updatedCount atlet berhasil diperbarui.");
+            ->with('successgrupings', "Data $updatedCount atlet berhasil diperbarui.");
     }
 
     public function resetAthletesGroup(Request $request)
@@ -331,7 +331,7 @@ class adminController extends Controller
             ->update(['grup' => null, 'area' => null]);
 
         return redirect()->route('grouping')
-            ->with('success', "Data $updatedCount atlet berhasil direset.");
+            ->with('successupdtgropus', "Data $updatedCount atlet berhasil direset.");
     }
 
     // END GROUPING

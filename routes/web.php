@@ -20,8 +20,8 @@ use Maatwebsite\Excel\Facades\Excel;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-// Route::get('/', function () {
-//     return view('admin.main');
+// Route::get('/main', function () {
+//     return view('admin.index');
 // });
 
 // LOGIN
