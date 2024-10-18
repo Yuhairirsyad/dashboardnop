@@ -1,682 +1,304 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mazer Admin Dashboard</title>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --header-height: 3rem;
+            --nav-width: 68px;
+            --first-color: #4723D9;
+            --first-color-light: #AFA5D9;
+            --white-color: #F7F6FB;
+            --body-font: 'Nunito', sans-serif;
+            --normal-font-size: 1rem;
+            --z-fixed: 100
+        }
 
-    <link rel="stylesheet" href="{{asset('assets/vendors/iconly/bold.css')}}">
+        * {
+            box-sizing: border-box;
+        }
 
-    <link rel="stylesheet" href="{{asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.svg')}}" type="image/x-icon">
+        body {
+            background-color: #f2f7ff;
+            position: relative;
+            margin: var(--header-height) 0 0 0;
+            padding: 0 1rem;
+            font-family: var(--body-font);
+            font-size: var(--normal-font-size);
+            transition: .5s;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .header {
+            width: 100%;
+            height: 10%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            background-color: transparent;
+            z-index: var(--z-fixed);
+            transition: .5s;
+        }
+
+        .avatar img {
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            object-fit: cover;
+        }
+
+        .header_toggle {
+            color: #31363F;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .header_img {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .header_img img {
+            width: 40px;
+        }
+
+        .l-navbar {
+            position: fixed;
+            top: 0;
+            left: -30%;
+            width: var(--nav-width);
+            height: 100vh;
+            background-color: #31363F;
+            padding: .5rem 1rem 0 0;
+            transition: .5s;
+            z-index: var(--z-fixed);
+        }
+
+        .nav {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .nav_logo,
+        .nav_link {
+            display: grid;
+            grid-template-columns: max-content max-content;
+            align-items: center;
+            column-gap: 1rem;
+            padding: .5rem 0 .5rem 1.5rem;
+        }
+
+        .nav_logo {
+            margin-bottom: 2rem;
+        }
+
+        .nav_logo-icon {
+            font-size: 1.25rem;
+            color: var(--white-color);
+        }
+
+        .nav_logo-name {
+            color: var(--white-color);
+            font-weight: 700;
+        }
+
+        .nav_link {
+            position: relative;
+            color: var(--first-color-light);
+            margin-bottom: 1.5rem;
+            transition: .3s;
+        }
+
+        .nav_link:hover {
+            color: var(--white-color);
+        }
+
+        .nav_icon {
+            font-size: 1.25rem;
+        }
+
+        .show {
+            left: 0;
+        }
+
+        .body-pd {
+            padding-left: calc(var(--nav-width) + 1rem);
+        }
+
+        .active {
+            color: var(--white-color);
+        }
+
+        .active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 2px;
+            height: 32px;
+            background-color: var(--white-color);
+        }
+
+        .height-100 {
+            height: 100vh;
+        }
+
+        @media screen and (min-width: 768px) {
+            body {
+                margin: calc(var(--header-height) + 1rem) 0 0 0;
+                padding-left: calc(var(--nav-width) + 2rem);
+            }
+
+            .header {
+                height: calc(var(--header-height) + 1rem);
+                padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
+            }
+
+            .header_img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .header_img img {
+                width: 45px;
+            }
+
+            .l-navbar {
+                left: 0;
+                padding: 1rem 1rem 0 0;
+            }
+
+            .show {
+                width: calc(var(--nav-width) + 156px);
+            }
+
+            .body-pd {
+                padding-left: calc(var(--nav-width) + 188px);
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <div id="app">
-        <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href="index.html"><img src="{{asset('assets/images/logo/logo.png')}}" alt="Logo" srcset=""></a>
-                        </div>
-                        <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
-                    </div>
+<body id="body-pd">
+    <header class="header" id="header">
+        <div class="header_toggle">
+            <i class='bx bx-menu' id="header-toggle"></i>
+        </div>
+        <div class="header_img">
+            <img src="https://i.imgur.com/hczKIze.jpg" alt="">
+        </div>
+        <div class="user-menu d-flex align-items-center">
+            <div class="user-img d-flex align-items-center me-2">
+                <div class="avatar avatar-md">
+                    <img src="{{ asset('assets/images/faces/2.jpg') }}" width="40" class="rounded-circle"
+                        alt="User Avatar">
                 </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
-
-                        <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
-                                <span>Components</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="component-alert.html">Alert</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-badge.html">Badge</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-breadcrumb.html">Breadcrumb</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-button.html">Button</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-card.html">Card</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-carousel.html">Carousel</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-dropdown.html">Dropdown</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-list-group.html">List Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-modal.html">Modal</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-navs.html">Navs</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-pagination.html">Pagination</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-progress.html">Progress</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-spinner.html">Spinner</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="component-tooltip.html">Tooltip</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
-                                <span>Extra Components</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="extra-component-avatar.html">Avatar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-toastify.html">Toastify</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-rating.html">Rating</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Divider</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical with Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Forms &amp; Tables</li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="form-layout.html" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Form Layout</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
-                                <span>Form Editor</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="form-editor-quill.html">Quill</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-ckeditor.html">CKEditor</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-summernote.html">Summernote</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-editor-tinymce.html">TinyMCE</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="table.html" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Table</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="table-datatable.html" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Datatable</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-title">Extra UI</li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pentagon-fill"></i>
-                                <span>Widgets</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-widgets-chatbox.html">Chatbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-widgets-pricing.html">Pricing</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-widgets-todolist.html">To-do List</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-egg-fill"></i>
-                                <span>Icons</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-icons-bootstrap-icons.html">Bootstrap Icons </a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-icons-fontawesome.html">Fontawesome</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-icons-dripicons.html">Dripicons</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Charts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-chart-chartjs.html">ChartJS</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-chart-apexcharts.html">Apexcharts</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="ui-file-uploader.html" class='sidebar-link'>
-                                <i class="bi bi-cloud-arrow-up-fill"></i>
-                                <span>File Uploader</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-map-fill"></i>
-                                <span>Maps</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-map-google-map.html">Google Map</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Pages</li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-email.html" class='sidebar-link'>
-                                <i class="bi bi-envelope-fill"></i>
-                                <span>Email Application</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-chat.html" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
-                                <span>Chat Application</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-gallery.html" class='sidebar-link'>
-                                <i class="bi bi-image-fill"></i>
-                                <span>Photo Gallery</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-checkout.html" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Checkout Page</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-person-badge-fill"></i>
-                                <span>Authentication</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="auth-login.html">Login</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-register.html">Register</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-forgot-password.html">Forgot Password</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-x-octagon-fill"></i>
-                                <span>Errors</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="error-403.html">403</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="error-404.html">404</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="error-500.html">500</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Raise Support</li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://zuramai.github.io/mazer/docs" class='sidebar-link'>
-                                <i class="bi bi-life-preserver"></i>
-                                <span>Documentation</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://github.com/zuramai/mazer/blob/main/CONTRIBUTING.md" class='sidebar-link'>
-                                <i class="bi bi-puzzle"></i>
-                                <span>Contribute</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="https://github.com/zuramai/mazer#donate" class='sidebar-link'>
-                                <i class="bi bi-cash"></i>
-                                <span>Donate</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+            <div class="user-name text-end me-3">
+                <a href="{{ route('login') }}" class="mt-3 text-muted text-decoration-none hover:text-primary">Login</a>
             </div>
         </div>
-        <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
+    </header>
+
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a href="#" class="nav_logo">
+                    <img src="{{asset('img/logotelkomsel.png')}}" alt="" width="25">
+                    <span class="nav_logo-name">Telkomsel</span>
                 </a>
-            </header>
-
-            <div class="page-heading text-center">
-                <h3>Walk & Run Challenge Q4 2024 T-Flyers Jateng DIY</h3>
-                <p>Start At: 01 Oktober 2024 | 00:00 - End At: 31 Desember 2024 | 23:59</p>
-                <marquee width="425" scrollamount="1000" scrolldelay="11000" class=" justify-content-center">
-                    <h5 style="color:#789DBC;" class="justify-content-center"><i>Update Data Every 09:00 Pagi dan 21:00 Malam</i></h5>
-                </marquee>
-            </div>
-            <div class="page-content">
-                <section class="row">
-                    <div class="col-12 col-lg-9">
-                        <div class="row">
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon purple">
-                                                    <i class="iconly-boldShow"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Profile Views</h6>
-                                                <h6 class="font-extrabold mb-0">112.000</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon blue">
-                                                    <i class="iconly-boldProfile"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Followers</h6>
-                                                <h6 class="font-extrabold mb-0">183.000</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon green">
-                                                    <i class="iconly-boldAdd-User"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Following</h6>
-                                                <h6 class="font-extrabold mb-0">80.000</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon red">
-                                                    <i class="iconly-boldBookmark"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Saved Post</h6>
-                                                <h6 class="font-extrabold mb-0">112</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Profile Visit</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="chart-profile-visit"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-xl-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Profile Visit</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                                        style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">Europe</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">862</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-europe"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-success" width="32" height="32" fill="blue"
-                                                        style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">America</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">375</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-america"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                                        style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">Indonesia</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">1025</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-indonesia"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-xl-8">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Latest Comments</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-lg">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Comment</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="assets/images/faces/5.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Congratulations on your graduation!</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="assets/images/faces/2.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Wow amazing design! Can you make another
-                                                                tutorial for
-                                                                this design?</p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-3">
-                        <div class="card">
-                            <div class="card-body py-4 px-5">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-xl">
-                                        <img src="assets/images/faces/1.jpg" alt="Face 1">
-                                    </div>
-                                    <div class="ms-3 name">
-                                        <h5 class="font-bold">John Duck</h5>
-                                        <h6 class="text-muted mb-0">@johnducky</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Recent Messages</h4>
-                            </div>
-                            <div class="card-content pb-4">
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="assets/images/faces/4.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">Hank Schrader</h5>
-                                        <h6 class="text-muted mb-0">@johnducky</h6>
-                                    </div>
-                                </div>
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="assets/images/faces/5.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">Dean Winchester</h5>
-                                        <h6 class="text-muted mb-0">@imdean</h6>
-                                    </div>
-                                </div>
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="assets/images/faces/1.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">John Dodol</h5>
-                                        <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                    </div>
-                                </div>
-                                <div class="px-4">
-                                    <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                                        Conversation</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Visitors Profile</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
+                <div class="nav_list">
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-grid-alt nav_icon'></i>
+                        <span class="nav_name">Dashboard</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class="bi bi-people nav_icon"></i>
+                        <span class="nav_name">Users</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-message-square-detail nav_icon'></i>
+                        <span class="nav_name">Messages</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-bookmark nav_icon'></i>
+                        <span class="nav_name">Bookmark</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-folder nav_icon'></i>
+                        <span class="nav_name">Files</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
+                        <span class="nav_name">Stats</span>
+                    </a>
                 </div>
-            </footer>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Container Main start -->
+    <div class="content">
+        <div class="page-header">
+            <div class="row text-center">
+                <div class="col-12 mt-5"> <!-- Tambahkan kolom untuk memperbaiki struktur -->
+                    <h3 style="font-weight: 700; color:#25396f;">Walk & Run Challenge Q4 2024 T-Flyers Jateng DIY</h3>
+                    <p class="text-muted">Start At: 01 Oktober 2024 | 00:00 - End At: 31 Desember 2024 | 23:59</p>
+                    <marquee width="400" scrollamount="1000" scrolldelay="11000" class=" justify-content-center">
+                        <h5 style="color:#1B1A55;" class="justify-content-center"><i>Update Data Every 09:00 Pagi
+                                dan 21:00 Malam</i></h5>
+                    </marquee>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="{{asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
-    <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 
-    <script src="{{asset('assets/vendors/apexcharts/apexcharts.js')}}"></script>
-    <script src="{{asset('assets/js/pages/dashboard.js')}}"></script>
 
-    <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            const showNavbar = (toggleId, navId, bodyId, headerId) => {
+                const toggle = document.getElementById(toggleId),
+                    nav = document.getElementById(navId),
+                    body = document.getElementById(bodyId),
+                    header = document.getElementById(headerId);
+                if (toggle && nav && body && header) {
+                    toggle.addEventListener('click', () => {
+                        nav.classList.toggle('show');
+                        body.classList.toggle('body-pd');
+                        header.classList.toggle('body-pd');
+                    });
+                }
+            }
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
+        });
+    </script>
 </body>
 
 </html>
