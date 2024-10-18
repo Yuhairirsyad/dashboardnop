@@ -26,4 +26,7 @@ class DashboardController extends Controller
         return view('dashgrub', compact('data'));
 
     }
+    public function ldrboard(){
+        return view('leaderboard');
+    }
 }
