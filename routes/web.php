@@ -56,8 +56,6 @@ Route::delete('/input/destroy/{id}', [adminController::class, 'destroy'])->name(
 // INPUT PAGE (nama rute diubah untuk menghindari duplikasi)
 Route::get('/input', [adminController::class, 'inputPage'])->name('input');
 
-Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export-users');
-
 // GRUP CHALLENGES
 Route::get('/challenges', [adminController::class, 'grupchallenges'])->name('challenges');
 Route::post('/crtchallenges', [adminController::class, 'crtchallenges'])->name('crtchallenges');
