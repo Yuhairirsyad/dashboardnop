@@ -20,9 +20,7 @@ use Maatwebsite\Excel\Facades\Excel;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/leader', function () {
-    return view('dashboard.leaderboard');
-});
+Route::get('/leader', [DashboardController::class, 'leader'])->name('leader');
 
 // LOGIN
 Route::get('/login', [adminController::class, 'adminlogin'])->name('login');
