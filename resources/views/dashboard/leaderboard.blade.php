@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --header-height: 3rem;
@@ -200,6 +201,16 @@
             height: 100vh;
         }
 
+        .podium {
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .podium:hover {
+            transform: translateY(-10px);
+        }
+
         @media screen and (min-width: 768px) {
             body {
                 margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -318,27 +329,14 @@
         </div>
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
-            let clock;
-            let currentDate = new Date();
-            let targetDate = new Date("2024-12-31T23:59:59"); // Sesuai dengan tanggal akhir yang disebutkan
-
-            let diff = Math.max((targetDate.getTime() - currentDate.getTime()) / 1000, 0);
-
-            clock = $(".clock").FlipClock(diff, {
-                clockFace: "DailyCounter",
-                countdown: true,
-                callbacks: {
-                    stop: function () {
-                        console.log("Timer has ended!");
-                        alert("The countdown has ended.");
-                    }
-                }
-            });
-        });
-
         document.addEventListener("DOMContentLoaded", function (event) {
+
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
@@ -353,6 +351,21 @@
                 }
             }
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
+        });
+    </script>
+</body>
+
+</html>
+       showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>       showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
         });
     </script>
 
