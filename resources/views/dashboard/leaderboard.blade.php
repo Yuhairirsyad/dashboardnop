@@ -329,14 +329,201 @@
         </div>
     </div>
 
+    <section class="row">
+        <div class="col-12 col-lg-9">
+            <div class="row">
+                <div class="col-12 col-xl-8">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <div class="card-header bg-white border-bottom">
+                                        <h4 class="fw-bold" style="color:#25396f;">Personal Category</h4>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="p-3">
+                                        <table class="table mt-2" style="font-size: 13px;text-align:center;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="padding: 5px;">Fastest</th>
+                                                    <th style="padding: 5px;">Kilometer</th>
+                                                    <th style="padding: 5px;">Durable</th>
+                                                    <th style="padding: 5px;">Active</th>
+                                                    <th style="padding: 5px;">Kalori</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="border-bottom:hidden;">
+                                                <tr>
+                                                    <td class="atas" style="padding: 5px;">
+                                                        <img
+                                                            src="https://img.icons8.com/emoji/30/null/sports-medal-emoji.png"><br><a>2.81</a>
+                                                        mnt/Km
+                                                    </td>
+                                                    <td class="atas" align="center" style="padding: 5px;">
+                                                        <img
+                                                            src="https://img.icons8.com/emoji/30/null/sports-medal-emoji.png"><br><a>153.77</a>
+                                                        Km
+                                                    </td>
+                                                    <td class="atas" style="padding: 5px;">
+                                                        <img
+                                                            src="https://img.icons8.com/emoji/30/null/sports-medal-emoji.png"><br><a>22</a>
+                                                        Jam
+                                                    </td>
+                                                    <td class="atas" style="padding: 5px;">
+                                                        <img
+                                                            src="https://img.icons8.com/emoji/30/null/sports-medal-emoji.png"><br><a>16</a>
+                                                        Activity
+                                                    </td>
+                                                    <td class="atas" style="padding: 5px;">
+                                                        <img
+                                                            src="https://img.icons8.com/emoji/30/null/sports-medal-emoji.png"><br><a>21.1</a>
+                                                        Kcal
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5"
+                                                        style="border-top: hidden;padding:5px;color:cornflowerblue;font-weight:bold;"
+                                                        align="center">
+                                                        Best All Category At Top 1 Group
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="p-3">
+                                        <div class="row text-center justify-content-center">
+                                            <div class="col-lg-2 col-md-3 col-6 mb-4">
+                                                <div class="podium shadow-sm p-2 d-flex flex-column align-items-center justify-content-end"
+                                                    style="height: 150px; background: #435ebe; border-radius: 10px;">
+                                                    <p class="text-white mb-0">Ade</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-3 col-6 mb-4">
+                                                <div class="podium shadow-sm p-2 d-flex flex-column align-items-center justify-content-end"
+                                                    style="height: 150px; background: #198754; border-radius: 10px;">
+                                                    <p class="text-white mb-0">Hari</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-3 col-6 mb-4">
+                                                <div class="podium shadow-sm p-2 d-flex flex-column align-items-center justify-content-end"
+                                                    style="height: 150px; background:#dc3545; border-radius: 10px;">
+                                                    <p class="text-white mb-0">Ade</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-3 col-6 mb-4">
+                                                <div class="podium shadow-sm p-2 d-flex flex-column align-items-center justify-content-end"
+                                                    style="height: 150px; background:#8E24AA; border-radius: 10px;">
+                                                    <p class="text-white mb-0">Ade</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-3 col-6 mb-4">
+                                                <div class="podium shadow-sm p-2 d-flex flex-column align-items-center justify-content-end"
+                                                    style="height: 150px; background: #6c757d; border-radius: 10px;">
+                                                    <p class="text-white mb-0">Ade</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="card">
+                <div class="card-body py-4 px-5">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar avatar-xl">
+                            <img src="assets/images/faces/1.jpg" alt="Face 1">
+                        </div>
+                        <div class="ms-3 name">
+                            <h5 class="font-bold">John Duck</h5>
+                            <h6 class="text-muted mb-0">@johnducky</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4>Recent Messages</h4>
+                </div>
+                <div class="card-content pb-4">
+                    <div class="recent-message d-flex px-4 py-3">
+                        <div class="avatar avatar-lg">
+                            <img src="assets/images/faces/4.jpg">
+                        </div>
+                        <div class="name ms-4">
+                            <h5 class="mb-1">Hank Schrader</h5>
+                            <h6 class="text-muted mb-0">@johnducky</h6>
+                        </div>
+                    </div>
+                    <div class="recent-message d-flex px-4 py-3">
+                        <div class="avatar avatar-lg">
+                            <img src="assets/images/faces/5.jpg">
+                        </div>
+                        <div class="name ms-4">
+                            <h5 class="mb-1">Dean Winchester</h5>
+                            <h6 class="text-muted mb-0">@imdean</h6>
+                        </div>
+                    </div>
+                    <div class="recent-message d-flex px-4 py-3">
+                        <div class="avatar avatar-lg">
+                            <img src="assets/images/faces/1.jpg">
+                        </div>
+                        <div class="name ms-4">
+                            <h5 class="mb-1">John Dodol</h5>
+                            <h6 class="text-muted mb-0">@dodoljohn</h6>
+                        </div>
+                    </div>
+                    <div class="px-4">
+                        <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
+                            Conversation</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4>Visitors Profile</h4>
+                </div>
+                <div class="card-body">
+                    <div id="chart-visitors-profile"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
+        $(document).ready(function () {
+            let clock;
+            let currentDate = new Date();
+            let targetDate = new Date("2024-12-31T23:59:59");
 
+            let diff = Math.max((targetDate.getTime() - currentDate.getTime()) / 1000, 0);
+
+            clock = $(".clock").FlipClock(diff, {
+                clockFace: "DailyCounter",
+                countdown: true,
+                callbacks: {
+                    stop: function () {
+                        console.log("Timer has ended!");
+                        alert("The countdown has ended.");
+                    }
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function (event) {
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
@@ -353,25 +540,10 @@
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
         });
     </script>
-</body>
-
-</html>
-       showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
-        });
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>       showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
-        });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>
