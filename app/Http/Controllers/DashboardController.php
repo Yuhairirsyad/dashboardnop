@@ -18,15 +18,18 @@ use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
-    public function dsbusr(){
-        return view('user');
-    }
     public function dashgrub(){
         $data = listdaftar::all();
         return view('dashgrub', compact('data'));
 
     }
-    public function ldrboard(){
-        return view('leaderboard');
+
+    public function leader()
+    {
+        // Mengambil satu kutipan secara acak
+        $quote = Quotes::inRandomOrder()->first();
+
+        return view('dashboard.leaderboard', compact('quote'));
     }
+    
 }
