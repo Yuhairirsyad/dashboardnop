@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --header-height: 3rem;
@@ -28,7 +30,8 @@
         }
 
         body {
-            background-color: #f2f7ff;
+            background-image: url('img/garis.jpg');
+            background-size: cover;
             position: relative;
             margin: var(--header-height) 0 0 0;
             padding: 0 1rem;
@@ -55,6 +58,39 @@
             z-index: var(--z-fixed);
             transition: .5s;
         }
+
+        .clock {
+            width: 650px;
+            position: relative;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            zoom: 0.5;
+            -moz-transform: scale(0.5);
+        }
+
+        .flip-clock-label {
+            color: rgb(0, 0, 0) !important;
+            font-size: 24px !important;
+            padding-left: 20px !important;
+        }
+
+        .flip-clock-dot {
+            background: #fff;
+        }
+
+        .time-labels {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+        }
+
+        .time-labels span {
+            margin: 0 5px;
+        }
+
 
         .avatar img {
             border-radius: 50%;
@@ -165,6 +201,16 @@
             height: 100vh;
         }
 
+        .podium {
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .podium:hover {
+            transform: translateY(-10px);
+        }
+
         @media screen and (min-width: 768px) {
             body {
                 margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -199,6 +245,8 @@
             }
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.js"></script>
 </head>
 
 <body id="body-pd">
@@ -209,24 +257,23 @@
         <div class="header_img">
             <img src="https://i.imgur.com/hczKIze.jpg" alt="">
         </div>
-        <div class="user-menu d-flex align-items-center">
+        <!-- <div class="user-menu d-flex align-items-center">
             <div class="user-img d-flex align-items-center me-2">
                 <div class="avatar avatar-md">
-                    <img src="{{ asset('assets/images/faces/2.jpg') }}" width="40" class="rounded-circle"
-                        alt="User Avatar">
+                    <img src="assets/images/faces/2.jpg" width="40" class="rounded-circle" alt="User Avatar">
                 </div>
             </div>
             <div class="user-name text-end me-3">
-                <a href="{{ route('login') }}" class="mt-3 text-muted text-decoration-none hover:text-primary">Login</a>
+                <a href="login" class="mt-3 text-muted text-decoration-none hover:text-primary">Login</a>
             </div>
-        </div>
+        </div> -->
     </header>
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
                 <a href="#" class="nav_logo">
-                    <img src="{{asset('img/logotelkomsel.png')}}" alt="" width="25">
+                    <img src="img/logotelkomsel.png" alt="" width="25">
                     <span class="nav_logo-name">Telkomsel</span>
                 </a>
                 <div class="nav_list">
@@ -256,6 +303,10 @@
                     </a>
                 </div>
             </div>
+            <a href="#" class="nav_link">
+                <img src="assets/images/faces/2.jpg" width="26" class="rounded-circle" alt="User Avatar">
+                <span class="nav_name">Login</span>
+            </a>
         </nav>
     </div>
 
@@ -263,10 +314,13 @@
     <div class="content">
         <div class="page-header">
             <div class="row text-center">
-                <div class="col-12 mt-5"> <!-- Tambahkan kolom untuk memperbaiki struktur -->
+                <div class="col-12 mt-4">
                     <h3 style="font-weight: 700; color:#25396f;">Walk & Run Challenge Q4 2024 T-Flyers Jateng DIY</h3>
                     <p class="text-muted">Start At: 01 Oktober 2024 | 00:00 - End At: 31 Desember 2024 | 23:59</p>
-                    <marquee width="400" scrollamount="1000" scrolldelay="11000" class=" justify-content-center">
+                    <div class="clock-container mt-5">
+                        <div class="clock"></div>
+                    </div>
+                    <marquee width="400" scrollamount="1000" scrolldelay="11000" class="justify-content-center">
                         <h5 style="color:#1B1A55;" class="justify-content-center"><i>Update Data Every 09:00 Pagi
                                 dan 21:00 Malam</i></h5>
                     </marquee>
@@ -275,14 +329,197 @@
         </div>
     </div>
 
+    {{-- Kategori Personal --}}
+    <div class="row mb-5">
+        <div class="col-12 col-xl-8">
+            <div class="card" style="box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); border-radius: 15px;">
+                <div class="card-header mb-3 text-center">
+                    <div class="row text-center justify-content-center mb-4">
+                        <div class="col-md-2 col-8">
+                            <span style="font-weight: bold; color: #007BFF;">Fastest</span>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <span style="font-weight: bold; color: #28A745;">Kilometer</span>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <span style="font-weight: bold; color: #DC3545;">Durable</span>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <span style="font-weight: bold; color: #9b59b6;">Active</span>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <span style="font-weight: bold; color: #17A2B8;">Kalori</span>
+                        </div>
+                    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                    <div class="row text-center justify-content-center mb-4">
+                        <div class="col-md-2 col-8">
+                            <a><img src="img/gambarmedal.png" alt="" width="60"
+                                    style="border-radius: 50%; transition: transform 0.3s ease, box-shadow 0.3s ease;"></a>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <a><img src="img/gambarmedal.png" alt="" width="60"
+                                    style="border-radius: 50%; transition: transform 0.3s ease, box-shadow 0.3s ease;"></a>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <a><img src="img/gambarmedal.png" alt="" width="60"
+                                    style="border-radius: 50%; transition: transform 0.3s ease, box-shadow 0.3s ease;"></a>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <a><img src="img/gambarmedal.png" alt="" width="60"
+                                    style="border-radius: 50%; transition: transform 0.3s ease, box-shadow 0.3s ease;"></a>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <a><img src="img/gambarmedal.png" alt="" width="60"
+                                    style="border-radius: 50%; transition: transform 0.3s ease, box-shadow 0.3s ease;"></a>
+                        </div>
+                    </div>
+
+                    <hr style="border-top: 2px solid #333; width: 80%; margin: 20px auto;">
+
+                    <h2 align="center" style="color:#1fc5c5; font-size: 18px; font-weight: bold;">
+                        Winners from each category
+                    </h2>
+                </div>
+
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row text-center justify-content-center">
+                            <div class="col-md-2 col-8 d-flex flex-column align-items-center justify-content-end mb-4">
+                                <div class="podium shadow-sm p-3"
+                                    style="height: 150px; background: linear-gradient(to top, #007BFF, #00D2FF); border-radius: 10px;">
+                                    <h5 class="font-weight-bold text-white">
+                                        <i class="fas fa-trophy"></i> 1st Place
+                                    </h5>
+                                    <p class="text-white">Name 1</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-8 d-flex flex-column align-items-center justify-content-end mb-4">
+                                <div class="podium shadow-sm p-3"
+                                    style="height: 150px; background: linear-gradient(to top, #28A745, #63c296); border-radius: 10px;">
+                                    <h5 class="font-weight-bold text-white">
+                                        <i class="fas fa-trophy"></i> 1st Place
+                                    </h5>
+                                    <p class="text-white">Name 2</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-8 d-flex flex-column align-items-center justify-content-end mb-4">
+                                <div class="podium shadow-sm p-3"
+                                    style="height: 150px; background: linear-gradient(to top, #DC3545, #FF6F71); border-radius: 10px;">
+                                    <h5 class="font-weight-bold text-white">
+                                        <i class="fas fa-trophy"></i> 1st Place
+                                    </h5>
+                                    <p class="text-white">Name 3</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-8 d-flex flex-column align-items-center justify-content-end mb-4">
+                                <div class="podium shadow-sm p-3"
+                                    style="height: 150px; background: linear-gradient(to top, #8931ac, #b881ce); border-radius: 10px;">
+                                    <h5 class="font-weight-bold text-white">
+                                        <i class="fas fa-trophy"></i> 1st Place
+                                    </h5>
+                                    <p class="text-white">Name 4</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-8 d-flex flex-column align-items-center justify-content-end mb-4">
+                                <div class="podium shadow-sm p-3"
+                                    style="height: 150px; background: linear-gradient(to top, #17A2B8, #73c0df); border-radius: 10px;">
+                                    <h5 class="font-weight-bold text-white">
+                                        <i class="fas fa-trophy"></i> 1st Place
+                                    </h5>
+                                    <p class="text-white">Name 5</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {{-- Kategori Grup --}}
+    <div class="row mt-5">
+        <div class="col-12 col-xl-8">
+            <div class="card" style="box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); border-radius: 15px;">
+                <div class="card-header mb-3 text-center">
+                    <div class="row text-center justify-content-center mb-4">
+                        <div class="col-md-3 col-8">
+                            <span style="font-weight: bold; color: #28A745;">Kilometer</span>
+                        </div>
+                        <div class="col-md-3 col-8">
+                            <span style="font-weight: bold; color: #9b59b6;">Active</span>
+                        </div>
+                    </div>
+
+                    <div class="row text-center justify-content-center mb-4">
+                        <div class="col-md-3 col-8">
+                            <a><img src="img/gambarmedal.png" alt="" width="60"
+                                    style="border-radius: 50%; transition: transform 0.3s ease, box-shadow 0.3s ease;"></a>
+                        </div>
+                        <div class="col-md-3 col-8">
+                            <a><img src="img/gambarmedal.png" alt="" width="60"
+                                    style="border-radius: 50%; transition: transform 0.3s ease, box-shadow 0.3s ease;"></a>
+                        </div>
+                    </div>
+
+                    <hr style="border-top: 2px solid #333; width: 80%; margin: 20px auto;">
+
+                    <h2 align="center" style="color:#1fc5c5; font-size: 18px; font-weight: bold;">
+                        Winners from Group each category
+                    </h2>
+                </div>
+
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row text-center justify-content-center">
+                            <div class="col-md-3 col-8 d-flex flex-column align-items-center justify-content-end mb-4">
+                                <div class="podium shadow-sm p-3"
+                                    style="height: 150px; background: linear-gradient(to top, #28A745, #63c296); border-radius: 10px;">
+                                    <h5 class="font-weight-bold text-white">
+                                        <i class="fas fa-trophy"></i> 1st Place
+                                    </h5>
+                                    <p class="text-white">Name 2</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-8 d-flex flex-column align-items-center justify-content-end mb-4">
+                                <div class="podium shadow-sm p-3"
+                                    style="height: 150px; background: linear-gradient(to top, #8931ac, #b881ce); border-radius: 10px;">
+                                    <h5 class="font-weight-bold text-white">
+                                        <i class="fas fa-trophy"></i> 1st Place
+                                    </h5>
+                                    <p class="text-white">Name 4</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
+        $(document).ready(function() {
+            let clock;
+            let currentDate = new Date();
+            let targetDate = new Date("2024-12-31T23:59:59");
 
+            let diff = Math.max((targetDate.getTime() - currentDate.getTime()) / 1000, 0);
+
+            clock = $(".clock").FlipClock(diff, {
+                clockFace: "DailyCounter",
+                countdown: true,
+                callbacks: {
+                    stop: function() {
+                        console.log("Timer has ended!");
+                        alert("The countdown has ended.");
+                    }
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function(event) {
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
@@ -298,6 +535,10 @@
             }
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
         });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 </body>
 
