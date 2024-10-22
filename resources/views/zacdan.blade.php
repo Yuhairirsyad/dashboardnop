@@ -500,7 +500,7 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             let clock;
             let currentDate = new Date();
             let targetDate = new Date("2024-12-31T23:59:59");
@@ -511,7 +511,7 @@
                 clockFace: "DailyCounter",
                 countdown: true,
                 callbacks: {
-                    stop: function() {
+                    stop: function () {
                         console.log("Timer has ended!");
                         alert("The countdown has ended.");
                     }
@@ -519,7 +519,7 @@
             });
         });
 
-        document.addEventListener("DOMContentLoaded", function(event) {
+        document.addEventListener("DOMContentLoaded", function (event) {
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
@@ -539,7 +539,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 
 </html>

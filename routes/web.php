@@ -21,6 +21,7 @@ use Maatwebsite\Excel\Facades\Excel;
 //     return view('welcome');
 // });
 Route::get('/leader', [DashboardController::class, 'leader'])->name('leader');
+Route::get('/dashgrub', [DashboardController::class, 'dashgrub'])->name('dashgrub');
 
 // LOGIN
 Route::get('/login', [adminController::class, 'adminlogin'])->name('login');
@@ -67,5 +68,3 @@ Route::post('/update-athletes-group', [adminController::class, 'updateAthletesGr
 Route::post('/reset-athletes-group', [adminController::class, 'resetAthletesGroup'])->name('reset.athletes.group');
 });
 
-Route::get('/', [DashboardController::class, 'dsbusr'])->name('dsbusr');
-Route::get('/dashgrub', [DashboardController::class, 'dashgrub'])->name('dashgrub');
