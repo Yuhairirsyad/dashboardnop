@@ -1,3 +1,4 @@
+@extends('dashboard.leaderboard')
 <!doctype html>
 <html lang="en">
 
@@ -33,7 +34,7 @@
         padding: 40px 30px 30px 30px;
         background-color: #ecf0f3;
         border-radius: 15px;
-        box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+        box-shadow: 13px 13px 20px #474E68, -13px -13px 20px #474E68;
     }
 
     .logo {
@@ -118,6 +119,46 @@
 </style>
 
 <body>
+<div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a href="{{route('leader')}}" class="nav_logo">
+                    <img src="img/logotelkomsel.png" alt="" width="25">
+                    <span class="nav_logo-name">Telkomsel</span>
+                </a>
+                <div class="nav_list">
+                    <a href="{{route('leader')}}" class="nav_link">
+                        <i class='bx bx-grid-alt nav_icon'></i>
+                        <span class="nav_name">Dashboard</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class="bi bi-people nav_icon"></i>
+                        <span class="nav_name">Users</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-message-square-detail nav_icon'></i>
+                        <span class="nav_name">Messages</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-bookmark nav_icon'></i>
+                        <span class="nav_name">Bookmark</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-folder nav_icon'></i>
+                        <span class="nav_name">Files</span>
+                    </a>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
+                        <span class="nav_name">Stats</span>
+                    </a>
+                </div>
+            </div>
+            <a href="{{route('login')}}" class="nav_link active">
+                <img src="assets/images/faces/2.jpg" width="26" class="rounded-circle" alt="User Avatar">
+                <span class="nav_name">Login</span>
+            </a>
+        </nav>
+    </div>
     <div class="content">
         <div class="wrapper">
             <div class="logo">

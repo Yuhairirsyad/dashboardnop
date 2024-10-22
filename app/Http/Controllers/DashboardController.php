@@ -29,7 +29,7 @@ class DashboardController extends Controller
         // Mengambil satu kutipan secara acak
         $quote = Quotes::inRandomOrder()->first();
 
-        return view('dashboard.leaderboard', compact('quote'));
+        return view('dashboard.content', compact('quote'));
     }
     
 }

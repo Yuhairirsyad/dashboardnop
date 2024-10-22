@@ -24,7 +24,8 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#" style="pointer-events:none; cursor:default;"><img src="{{asset('assets/images/logo/logo.png')}}" alt="Logo" srcset=""></a>
+                            <a href="#" style="pointer-events:none; cursor:default;"><img
+                                    src="{{asset('assets/images/logo/logo.png')}}" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -86,7 +87,8 @@
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img src="{{asset('assets/images/faces/1.jpg')}}">
+                                                <img src="{{asset('assets/images/faces/2.jpg')}}" width="26" class="rounded-circle"
+                                                    alt="User Avatar">
                                             </div>
                                         </div>
                                     </div>
