@@ -5,6 +5,7 @@ use App\Http\Controllers\dashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
