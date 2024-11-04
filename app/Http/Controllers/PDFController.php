@@ -19,17 +19,7 @@ use Mpdf\Mpdf;
 
 class PDFController extends Controller
 {
-    public function showForm()
-    {
-        $options = [
-            'Option 1' => 'Pilihan 1',
-            'Option 2' => 'Pilihan 2',
-            'Option 3' => 'Pilihan 3',
-        ];
-
-        return view('select_form', compact('options'));
-    }
-
+    // Helper method to format time from minutes to HH:MM:SS
     private function formatTime($minutes)
     {
         $hours = floor($minutes / 60);
@@ -37,6 +27,7 @@ class PDFController extends Controller
         return sprintf('%02d:%02d:00', $hours, $remainingMinutes);
     }
 
+    // Helper method to calculate pace in minutes per kilometer
     private function calculatePace($totalDistance, $totalMinutes)
     {
         if ($totalDistance <= 0) return "00:00";
@@ -48,6 +39,7 @@ class PDFController extends Controller
 
     public function generatePDF(Request $request)
     {
+        // Find athlete data
         $atletId = $request->input('selected_atlet');
         $atlet = Listdaftar::find($atletId);
 
@@ -55,7 +47,7 @@ class PDFController extends Controller
             return redirect('/sertifikat')->with('error', 'Atlet tidak ditemukan.');
         }
 
-        // Get athlete's statistics
+        // Calculate athlete statistics
         $stats = Datachallenge::where('id_athlete', $atlet->id_athlete)
             ->selectRaw('
                 SUM(distance)/1000 as total_distance,
@@ -65,6 +57,7 @@ class PDFController extends Controller
             ')
             ->first();
 
+        // Initialize MPDF with landscape A4 settings
         $mpdf = new \Mpdf\Mpdf([
             'orientation' => 'L',
             'format' => 'A4',
@@ -74,107 +67,116 @@ class PDFController extends Controller
             'margin_bottom' => 0,
         ]);
 
-        // Background image
+        // Set background image
         $backgroundImage = public_path('img/template2.png');
         $mpdf->SetDefaultBodyCSS('background', "url('" . $backgroundImage . "')");
         $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
 
+        // CSS Stylesheet definition
         $stylesheet = '
-    body {
-        margin: 0;
-        padding: 0;
-    }
-    .certificate-container {
-        width: 297mm;
-        height: 210mm;
-        position: relative;
-    }
-    .certificate-header {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        text-align: center;
-        padding-top: 64mm;
-    }
-    .athlete-name {
-        font-family: arial;
-        font-size: 48px;
-        font-weight: bold;
-        color: #ff6b00;
-        margin: 0 auto;
-        padding: 0;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        width: 80%;
-        margin-bottom: 15mm;
-    }
-    .stats-row {
-        width: 90%;
-        margin: 0 auto;
-        display: table;
-        table-layout: fixed;
-    }
-    .stat-item {
-        display: table-cell;
-        text-align: center;
-        padding: 0 2mm;
-    }
-    .stat-value {
-        font-family: arial;
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 2mm;
-    }
-    .stat-label {
-        font-family: arial;
-        font-size: 14px;
-        color: #666;
-        text-transform: uppercase;
-    }
-';
+            /* Base container styles */
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+            }
+
+            /* Main certificate container - adjusted position downward */
+.certificate-container {
+    position: absolute;
+    top: 43%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Adjust width as needed */
+    text-align: center;
+}
+
+
+            /* Athlete name styling - main focus point */
+            .athlete-name {
+                position: absolute;
+                top: 80mm;
+                width: 100%;
+                text-align: center;
+                font-size: 48px;
+                font-weight: bold;
+                color: #ff8f00;
+                text-transform: uppercase;
+            }
+
+            /* Statistics container */
+            .stats-container {
+                position: absolute;
+                top: 110mm;
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Statistics row layout */
+            .stats-row {
+                display: inline-block;
+                margin: 0 auto;
+                text-align: center;
+                width: 80%;
+            }
+
+            /* Individual stat item styling */
+            .stat-item {
+                display: inline-block;
+                margin: 0 15px;
+                font-size: 14px;
+            }
+
+            /* Rank position styling */
+            .rank {
+                position: absolute;
+                top: 130mm;
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+            }
+        ';
+
         $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
 
-        // Format statistics
+        // Format the statistics
         $totalDistance = number_format($stats->total_distance, 1);
         $totalCalories = number_format($stats->total_calories, 0);
         $totalActivities = number_format($stats->total_activities, 0);
         $totalTime = $this->formatTime($stats->total_time);
         $pace = $this->calculatePace($stats->total_distance, $stats->total_time);
 
-        // Content
+        // Combine first and last name
         $fullName = $atlet->firstname . ' ' . $atlet->lastname;
+
+        // HTML Certificate Structure
         $htmlContent = '
-    <div class="certificate-container">
-        <div class="certificate-header">
-            <div class="athlete-name">' . $fullName . '</div>
-            <div class="stats-row">
-                <div class="stat-item">
-                    <div class="stat-value">' . $totalDistance . ' KM</div>
-                    <div class="stat-label">Distance</div>
+            <div class="certificate-container">
+
+                <div class="athlete-name">' . $fullName . '</div>
+
+                <!-- Statistics section -->
+                <div class="stats-container">
+                    <!-- First row of stats -->
+                    <div class="stats-row">
+                        <span class="stat-item">Distance : ' . $totalDistance . ' Km</span>
+                        <span class="stat-item">Calories : ' . $totalCalories . ' Cal</span>
+                        <span class="stat-item">Activities : ' . $totalActivities . '</span>
+                    </div>
+                    <!-- Second row of stats -->
+                    <div class="stats-row" style="margin-top: 10px;">
+                        <span class="stat-item">Time : ' . $totalTime . '</span>
+                        <span class="stat-item">Pace : ' . $pace . ' min/km</span>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">' . $totalCalories . '</div>
-                    <div class="stat-label">Calories</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">' . $totalActivities . '</div>
-                    <div class="stat-label">Activities</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">' . $totalTime . '</div>
-                    <div class="stat-label">Time</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">' . $pace . '</div>
-                    <div class="stat-label">Pace</div>
-                </div>
-            </div>
-        </div>
-    </div>';
+
+                <!-- Rank display -->
+                <div class="rank">Rank : N/A</div>
+            </div>';
 
         $mpdf->WriteHTML($htmlContent);
 
+        // Output the PDF
         return $mpdf->Output('sertifikat_' . $fullName . '.pdf', 'I');
     }
 }
