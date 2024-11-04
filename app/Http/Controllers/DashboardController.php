@@ -19,9 +19,24 @@ use Illuminate\Support\Facades\Hash;
 class DashboardController extends Controller
 {
     public function dashgrub(){
-        $data = listdaftar::all();
+        $data = DB::table('list_daftar')
+            ->leftJoin('data_challenges', 'list_daftar.id_athlete', '=', 'data_challenges.id_athlete')
+            ->select(
+                'list_daftar.username',
+                DB::raw('SUM(data_challenges.distance) / 1000 as total_distance'), // Convert to kilometers
+                DB::raw('COUNT(data_challenges.id) as activity_count')
+            )
+            ->groupBy('list_daftar.username')
+            ->orderByDesc('total_distance')
+            ->get();
+
         return view('dashgrub', compact('data'));
 
+    }
+
+    public function sertifikat(){
+        $data = listdaftar::all();
+        return view('dashboard.sertifikat', compact('data'));
     }
 
     public function leader()
@@ -99,5 +114,9 @@ class DashboardController extends Controller
 
         return view('dashboard.content', compact('quote', 'data', 'metrics'));
     }
+
+    
+
+
 
 }
