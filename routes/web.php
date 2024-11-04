@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,8 +22,16 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+// Dashboard
 Route::get('/leader', [DashboardController::class, 'leader'])->name('leader');
 Route::get('/dashgrub', [DashboardController::class, 'dashgrub'])->name('dashgrub');
+Route::get('/sertifikat', [dashboardController::class, 'sertifikat'])->name('sertifikat');
+
+// PDF
+Route::get('/form', [PDFController::class, 'showForm']);
+Route::post('/generate-pdf', [PDFController::class, 'generatePDF']);
+
 
 // LOGIN
 Route::get('/login', [adminController::class, 'adminlogin'])->name('login');
