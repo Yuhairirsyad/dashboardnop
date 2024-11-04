@@ -115,7 +115,7 @@ class DashboardController extends Controller
         return view('dashboard.content', compact('quote', 'data', 'metrics'));
     }
 
-    
+
 
 
 
